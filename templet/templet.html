@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>[عنوان الجزء]</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- لا تنسخ CSS ولا JS داخل الصفحة: أبقِ هذا الرابط ووسم script في آخر الصفحة كما هما -->
+    <link rel="stylesheet" href="../assets/style.css" />
+  </head>
+
+  <body data-toc>
+    <!-- ==========================================================
+       قواعد القالب (احذف كل التعليقات والعناصر النائبة [...] من الملف النهائي)
+       الصفحة = جزء واحد من المرحلة (مثل 1.1)، وكل بند في قائمة موضوعات الجزء
+       = topic-block واحدة، بنفس الترتيب. القالب واحد لكل المراحل؛ تختار من مكوّناته
+       ما يناسب المحتوى، وتحذف الباقي بالكامل:
+         رياضيات ونظري ← definition + math-block + example + جداول + figure (بلا كود)
+         برمجة وSQL ← code-block + output-block
+         أوامر وأنظمة ← code-block بلغة bash + output-block
+         تصميم وقرارات ← flow-diagram + جدول قرار + pre dir="ltr" (مخطط ASCII)
+
+       1) الشرح ثم مثاله مباشرة داخل topic-block نفسها؛ لا تجمع كل النظري ثم كل العملي.
+       2) موضوع مفهومي بلا مثال: شرح فقط. موضوعان لهما مثال طبيعي واحد: مثال واحد.
+       3) كل ما فيه علامة «اختياري» أضفه فقط إن أضاف قيمة، واحذف ما لا تحتاجه.
+       4) الخطأ الشائع الخاص بموضوع يُكتب في callout--warning داخل كتلة الموضوع.
+       5) تعريف أو قاعدة أو صيغة أو نظرية ← callout--definition، والتسمية في
+          callout__label (تعريف | قاعدة | صيغة | نظرية).
+       6) المعادلات بصيغة KaTeX يحمّلها السكربت تلقائيًا: داخل السطر \( … \)، وعلى
+          سطر مستقل داخل <div class="math-block">\[ … \]</div>. لا تستعمل $ ولا $$.
+          داخل المعادلة: رموز لاتينية فقط (x وn وf(x))، والكلام العربي خارجها؛
+          واكتب \lt و\gt بدل < و>، و&amp; بدل & داخل aligned.
+       7) المثال المحلول: <div class="example"> بمسألة ثم خطوات مرقّمة ثم الجواب.
+          الجدول الصغير (جدول صواب أو قيم) بـ table-wrap--fit.
+       8) الرسم (اختياري، عند الضرورة فقط): figure فيه svg بـ viewBox وبـ classes الـ
+          fg-* فقط (بلا style ولا ألوان ولا نص عربي داخل الـ svg)، والتعليق العربي
+          في figcaption؛ وبحد أقصى 40 سطرًا للرسم.
+       9) كل code-block له مخرجات يليه output-block مطابق لما يطبعه الكود فعلًا
+          (نص خام داخل pre بلا code)، ولا output-block لكود بلا مخرجات.
+          language-XXXX تُستبدل بلغة الكود (python, sql, bash, yaml ...)، وتُهرَّب
+          الرموز < > & داخل الكود. اسم الملف في الرأس مثل "Cell 1 — وصف".
+          الكود داخل السطر (code) قصير (حتى ~40 حرفًا)؛ الأطول في code-block.
+      10) لا أزرار ولا أيقونات ولا وسوم script/link إضافية: السكربت يضيف زر النسخ وشارة
+          اللغة وقائمة المحتويات وعنوان الشريط العلوي والمعادلات والتلوين تلقائيًا.
+          لا تضف classes غير الموجودة هنا، ولا وسم style، ولا footer. السمات مثل
+          dir="ltr" على pre مسموحة. أبقِ <body data-toc> كما هو.
+    =========================================================== -->
+
+    <!-- Top bar: رابط صفحة المرحلة + عنوان الصفحة (يملؤه السكربت من h1) -->
+    <div class="topbar">
+      <div class="container topbar__inner">
+        <a class="topbar__back" href="index.html"><span>المرحلة</span></a>
+        <span class="topbar__title" data-sync-title></span>
+      </div>
+    </div>
+
+    <main>
+      <!-- ==========================================================
+         Hero
+         eyebrow: موقع الصفحة، مثل "P01 · التأسيس الرياضي · 1.1".
+         lead: مقدمة الجزء بالكامل (ما يضيفه ولماذا يهم الآن)،
+         ولا يوجد قسم "مقدمة" منفصل بعده.
+      =========================================================== -->
+      <header class="hero">
+        <div class="container">
+          <div class="hero__eyebrow">[P00 · اسم المرحلة · 0.0]</div>
+          <h1 class="hero__title">[عنوان الجزء]</h1>
+          <p class="hero__lead">
+            [مقدمة موجزة: ما الذي يضيفه هذا الجزء تحديدًا ولماذا يهم الآن.]
+          </p>
+        </div>
+      </header>
+
+      <!-- ==========================================================
+         شرح وتطبيق (data-toc="deep" يرقّم موضوعات الجزء ويضعها في قائمة المحتويات)
+      =========================================================== -->
+      <section class="content-section" id="explanation" data-toc="deep">
+        <div class="container">
+          <div class="content-section__eyebrow">شرح وتطبيق</div>
+          <h2 class="content-section__title">شرح وتطبيق كل موضوع</h2>
+
+          <div class="article-content">
+            <!-- ============ Topic Block: [اسم الموضوع 1] (يعرض كل المكوّنات الممكنة) ============ -->
+            <div class="topic-block" id="[topic-1-slug]">
+              <h3 class="topic-block__title">[اسم الموضوع 1]</h3>
+
+              <p>[المشكلة أو السؤال الذي يحلّه الموضوع، ثم الفكرة: كيف يعمل داخليًا ولماذا.]</p>
+
+              <!-- تعريف / قاعدة / صيغة / نظرية (اختياري) -->
+              <div class="callout callout--definition">
+                <span class="callout__label">تعريف</span>
+                <p>[التعريف الدقيق، ويجوز فيه معادلة داخل السطر مثل \(a^{m} \cdot a^{n} = a^{m+n}\).]</p>
+              </div>
+
+              <!-- معادلة على سطر مستقل (اختياري) -->
+              <div class="math-block">\[ f(x) = \frac{x^2 + 1}{2} \]</div>
+
+              <!-- Note (اختياري) -->
+              <div class="callout callout--note">
+                <span class="callout__label">ملاحظة</span>
+                <p>[معلومة مهمة يجب أن يعرفها القارئ.]</p>
+              </div>
+
+              <!-- مثال محلول (اختياري): المسألة ثم الخطوات ثم الجواب -->
+              <div class="example">
+                <span class="example__label">مثال محلول</span>
+                <div class="example__body">
+                  <p>[نص المسألة بأرقام صغيرة.]</p>
+                  <ol>
+                    <li>[الخطوة 1 مع تبريرها.]</li>
+                    <li>[الخطوة 2: \(2 \times 3 = 6\).]</li>
+                  </ol>
+                  <p class="example__answer">الجواب: [النتيجة، وكيف نتحقق منها.]</p>
+                </div>
+              </div>
+
+              <!-- جدول صغير (اختياري): جدول صواب أو جدول قيم -->
+              <div class="table-wrap table-wrap--fit">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>x</th>
+                      <th>f(x)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>1</td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>2.5</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- رسم (اختياري): classes الـ fg-* فقط، ونصوص لاتينية وأرقام فقط داخل svg -->
+              <figure class="figure">
+                <svg viewBox="0 0 240 150" role="img" aria-label="[وصف الرسم]">
+                  <path class="fg-grid" d="M40 20V130M80 20V130M120 20V130M160 20V130M200 20V130M30 40H220M30 80H220M30 120H220" />
+                  <path class="fg-axis" d="M30 130H225M40 135V15" />
+                  <path class="fg-curve" d="M40 120C90 118 150 90 205 30" />
+                  <circle class="fg-dot-accent" cx="120" cy="104" r="4.5" />
+                  <text class="fg-text" x="214" y="146">x</text>
+                  <text class="fg-text" x="46" y="22">y</text>
+                </svg>
+                <figcaption>[تعليق عربي يشرح ما يظهر في الرسم.]</figcaption>
+              </figure>
+
+              <!-- Flow Diagram (اختياري): الترقيم والأسهم من CSS؛ أبقِ flow-arrow بين الخطوات -->
+              <div class="flow-diagram">
+                <div class="flow-step">
+                  <div class="flow-step__title">[خطوة 1]</div>
+                  <div class="flow-step__description">[وصف]</div>
+                </div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-step">
+                  <div class="flow-step__title">[خطوة 2]</div>
+                  <div class="flow-step__description">[وصف]</div>
+                </div>
+              </div>
+
+              <!-- مخطط ASCII (اختياري): pre بسمة dir="ltr" وبلا class وبلا output-block -->
+              <pre dir="ltr">Client ──▶ Server ──▶ Database</pre>
+
+              <!-- المثال البرمجي لنفس الموضوع (للمسارات البرمجية فقط) -->
+              <div class="code-block">
+                <div class="code-block__header">
+                  <span class="code-block__filename">Cell 1 — [وصف قصير]</span>
+                </div>
+                <pre class="code-block__body"><code class="language-python"># [كود المثال هنا]</code></pre>
+              </div>
+
+              <!-- Output (اختياري: فقط لو للكود مخرجات) -->
+              <div class="output-block">
+                <span class="output-block__label">Output</span>
+                <pre class="output-block__body">[المخرجات هنا]</pre>
+              </div>
+
+              <p>[شرح التنفيذ أو الحل: لماذا كُتب هكذا، وأي تفاصيل مهمة.]</p>
+
+              <!-- Warning: الخطأ الشائع الخاص بهذا الموضوع (اختياري) -->
+              <div class="callout callout--warning">
+                <span class="callout__label">انتبه</span>
+                <p>[الخطأ الشائع أو سوء الفهم المرتبط بهذا الموضوع تحديدًا.]</p>
+              </div>
+            </div>
+
+            <!-- ============ Topic Block: [اسم الموضوع 2] (مفهومي بلا مثال) ============ -->
+            <div class="topic-block" id="[topic-2-slug]">
+              <h3 class="topic-block__title">[اسم الموضوع 2]</h3>
+              <p>[شرح نظري.]</p>
+            </div>
+
+            <!-- كرر topic-block لكل موضوع باقٍ -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================================
+         Comparison (اختياري): فقط عند وجود مفاضلة حقيقية؛ وإلا احذف القسم.
+         للقرارات الهندسية استعمل الأعمدة: القرار | البديل | السبب | الثمن (≤ 4 أعمدة).
+      =========================================================== -->
+      <section class="content-section content-section--tint" id="comparison">
+        <div class="container">
+          <div class="content-section__eyebrow">مقارنة</div>
+          <h2 class="content-section__title">[عنوان المقارنة]</h2>
+
+          <div class="table-wrap">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>الميزة</th>
+                  <th>[الخيار أ]</th>
+                  <th>[الخيار ب]</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>[نقطة المقارنة]</td>
+                  <td>[وصف]</td>
+                  <td>[وصف]</td>
+                </tr>
+                <tr>
+                  <td>[نقطة المقارنة]</td>
+                  <td>[وصف]</td>
+                  <td>[وصف]</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================================
+         اختبر نفسك: سؤال واحد على الأقل لكل موضوع أساسي (حتى 5 أسئلة)، بمستويات
+         متدرجة (فهم ← تطبيق ← تحليل ← قرار). الإجابة تُطوى داخل reveal.
+      =========================================================== -->
+      <section class="content-section" id="quiz">
+        <div class="container">
+          <div class="content-section__eyebrow">اختبر نفسك</div>
+          <h2 class="content-section__title">أسئلة نظرية</h2>
+          <p class="content-section__description">
+            حاول أن تجيب بنفسك قبل أن تفتح الإجابة تحت كل سؤال.
+          </p>
+
+          <div class="article-content">
+            <div class="topic-block" id="q1">
+              <h3 class="topic-block__title">سؤال 1</h3>
+              <p>[نص السؤال: مفهوم بذاته، بلا إحالات على ما لم يُعرض في الصفحة.]</p>
+              <details class="reveal">
+                <summary>الإجابة</summary>
+                <div class="reveal__body">
+                  <p>[إجابة من جملتين إلى ثلاث، تنتهي بـ «(راجع: اسم الموضوع)».]</p>
+                </div>
+              </details>
+            </div>
+
+            <!-- كرر topic-block لكل سؤال: سؤال 2، سؤال 3 ... -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================================
+         تمرين شامل: سيناريو واحد من 3 أو 4 خطوات مرقّمة (تنفّذ ← تصلح أو تتتبّع ←
+         تفسّر أو تقرّر)، وآخرها سؤال «عقلية المهندس». الحل مطويّ داخل reveal.
+         لا تعرض المخرجات المتوقعة قبل الحل.
+      =========================================================== -->
+      <section class="content-section content-section--tint" id="exercise">
+        <div class="container">
+          <div class="content-section__eyebrow">تمرين شامل</div>
+          <h2 class="content-section__title">[عنوان التمرين]</h2>
+
+          <div class="article-content">
+            <p>[السيناريو الواقعي في فقرة قصيرة.]</p>
+
+            <!-- المعطيات (اختياري): code-block أو جدول صغير -->
+
+            <ol>
+              <li>[الخطوة 1: نفّذ.]</li>
+              <li>[الخطوة 2: أصلح أو تتبّع.]</li>
+              <li>[الخطوة 3: فسّر أو قرّر.]</li>
+              <li>[الخطوة الأخيرة — عقلية المهندس: ماذا لو…؟ ولماذا اخترنا هذا الحل؟]</li>
+            </ol>
+
+            <!-- تلميح (اختياري) -->
+            <details class="reveal reveal--hint">
+              <summary>تلميح</summary>
+              <div class="reveal__body">
+                <p>[تلميح واحد.]</p>
+              </div>
+            </details>
+
+            <details class="reveal">
+              <summary>الحل</summary>
+              <div class="reveal__body">
+                <!-- حل كل خطوة بالترتيب: (code-block ثم output-block) أو (math-block) ثم شرح قصير -->
+                <p>[حل الخطوة 1.]</p>
+                <p><strong>عقلية المهندس:</strong> [حل السؤال الأخير: ماذا حدث؟ ولماذا؟ وماذا نفعل؟ وكيف نتحقق؟]</p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================================
+         Summary: علامة ✓ تأتي من CSS فلا تكتبها. آخر نقطة: «عقلية المهندس: …» بجملة واحدة.
+      =========================================================== -->
+      <section class="content-section" id="summary">
+        <div class="container">
+          <div class="content-section__eyebrow">الخلاصة</div>
+          <h2 class="content-section__title">أهم ما يجب تذكّره</h2>
+
+          <div class="summary-card">
+            <ul class="summary-card__list">
+              <li>[نقطة أساسية 1]</li>
+              <li>[نقطة أساسية 2]</li>
+              <li>[عقلية المهندس: …]</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================================
+         التنقل بين الأجزاء: أول جزء يجعل «السابق» = index.html (صفحة المرحلة)،
+         وآخر جزء يجعل «التالي» = index.html. المسارات والعناوين يحدّدها الـ prompt.
+      =========================================================== -->
+      <nav class="page-nav" aria-label="التنقل بين الأجزاء">
+        <div class="container page-nav__inner">
+          <a class="page-nav__link page-nav__link--prev" href="[مسار-السابق.html]">
+            <span class="page-nav__label">السابق</span>
+            <span class="page-nav__title">[عنوان الجزء السابق]</span>
+          </a>
+          <a class="page-nav__link page-nav__link--next" href="[مسار-التالي.html]">
+            <span class="page-nav__label">التالي</span>
+            <span class="page-nav__title">[عنوان الجزء التالي]</span>
+          </a>
+        </div>
+      </nav>
+    </main>
+
+    <script src="../assets/stage.js"></script>
+  </body>
+</html>
