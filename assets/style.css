@@ -1568,6 +1568,17 @@ main > .content-section:nth-of-type(odd) {
   line-height: 1.6;
 }
 
+.prompt-card__topics {
+  display: -webkit-box;
+  margin-top: 0.1rem;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  color: var(--clr-text-mute);
+  font-size: 0.86rem;
+  line-height: 1.7;
+}
+
 .prompt-card .prompt-card__file {
   display: block;
   margin-top: 0.1rem;

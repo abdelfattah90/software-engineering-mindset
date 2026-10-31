@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="#fcfcfc" name="theme-color"/>
+<title>Software Engineering Mindset</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    color-scheme: light;
+    --page: #fcfcfc;
+    --surface: #ffffff;
+    --surface-soft: #fcfcfc;
+    --text: #576db5;
+    --muted: #576db5;
+    --line: #fcfcfc;
+    --accent: #b378a6;
+    --accent-soft: #fcfcfc;
+    --shadow: none;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; background: var(--page); }
+  body {
+    margin: 0;
+    color: var(--text);
+    background: var(--page);
+    font-family: "Baloo Bhaijaan 2", "Segoe UI", Tahoma, system-ui, sans-serif;
+    font-size: 19px;
+    line-height: 1.95;
+    direction: rtl;
+  }
+
+  .page {
+    width: min(100% - 48px, 900px);
+    margin: 0 auto;
+    padding: 48px 0 84px;
+  }
+
+  .hero {
+    padding: clamp(28px, 5vw, 48px);
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    background: var(--surface);
+    box-shadow: var(--shadow);
+  }
+  .eyebrow {
+    display: block;
+    margin: 0 0 14px;
+    color: var(--accent);
+    font-size: 1rem;
+    font-weight: 700;
+    text-align: right;
+  }
+  h1 {
+    margin: 0 0 25px;
+    color: var(--text);
+    font-size: clamp(2.2rem, 5.2vw, 3.2rem);
+    line-height: 1.3;
+    direction: ltr;
+    text-align: left;
+    letter-spacing: -.025em;
+  }
+  .intro {
+    max-width: 790px;
+    margin-left: auto;
+    text-align: right;
+    direction: rtl;
+  }
+  .intro p {
+    margin: 0 0 18px;
+    color: var(--muted);
+    font-size: 1.08rem;
+    line-height: 2;
+    text-align: right;
+    direction: rtl;
+  }
+  .intro p:first-child {
+    color: var(--text);
+    font-size: 1.14rem;
+    font-weight: 600;
+  }
+  .intro p:last-child { margin-bottom: 0; }
+
+  .stats {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 7px;
+    margin-top: 28px;
+  }
+  .stat {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 10px;
+    padding: 3px 0;
+    color: var(--muted);
+    font-size: 1rem;
+  }
+  .stat strong {
+    min-width: 2.2rem;
+    color: var(--accent);
+    font-size: 1.12rem;
+    font-weight: 700;
+    text-align: right;
+  }
+
+  .plan-section {
+    --accent: #b378a6;
+    --accent-soft: #fcfcfc;
+    margin-top: 58px;
+  }
+  .plan-section.math-section,
+  .plan-section.optional { --accent: #b378a6; --accent-soft: #fcfcfc; }
+  .backend-section { --accent: #576db5; --accent-soft: #fcfcfc; }
+  .backend-section .section-heading { border-right-color: var(--accent); }
+  .backend-section .stage-number { border-color: #576db5; }
+
+
+  .section-heading {
+    margin-bottom: 25px;
+    padding: 0 20px 0 0;
+    border-right: 4px solid var(--accent);
+  }
+  .section-kicker {
+    margin: 0 0 5px;
+    color: var(--muted);
+    font-size: .9rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+    direction: ltr;
+    text-align: left;
+  }
+  .section-heading h2 {
+    margin: 0;
+    color: var(--text);
+    font-size: clamp(1.55rem, 3.2vw, 1.9rem);
+    line-height: 1.55;
+    font-weight: 700;
+  }
+  .section-heading h2[dir="rtl"] { direction: rtl; text-align: right; }
+  .section-heading h2[dir="ltr"] { direction: ltr; text-align: left; }
+  .section-description {
+    margin: 9px 0 0;
+    color: var(--muted);
+    font-size: 1.04rem;
+    line-height: 1.9;
+    direction: rtl;
+    text-align: right;
+  }
+
+  /* One stage per row: no side-by-side cards or horizontally wrapped topics. */
+  .stage-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+  .stage-card {
+    min-width: 0;
+    padding: 25px 28px 26px;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: var(--surface);
+    box-shadow: var(--shadow);
+  }
+  .stage-heading {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 9px;
+    margin-bottom: 17px;
+    direction: rtl;
+  }
+  .stage-number {
+    display: flex;
+    align-self: flex-start;
+    width: 42px;
+    min-height: 42px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #b378a6;
+    border-radius: 12px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 1.12rem;
+    font-weight: 700;
+    line-height: 1;
+    direction: ltr;
+    font-variant-numeric: tabular-nums;
+  }
+  .stage-title {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 2px;
+    align-items: stretch;
+  }
+  .stage-title-ar {
+    display: block;
+    color: var(--text);
+    font-size: 1.28rem;
+    font-weight: 700;
+    line-height: 1.6;
+    direction: rtl;
+    text-align: right;
+  }
+  .stage-title-en {
+    display: block;
+    color: var(--accent);
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: 1.55;
+    direction: ltr;
+    text-align: left;
+    overflow-wrap: anywhere;
+  }
+  .stage-description {
+    margin: 0 0 20px;
+    color: var(--muted);
+    font-size: 1.08rem;
+    line-height: 2;
+    direction: rtl;
+    text-align: right;
+  }
+
+  /* Each topic is a separate vertical block, with language-specific alignment. */
+  .topics {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .topic {
+    display: flex;
+    width: 100%;
+    min-width: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 3px;
+    padding: 11px 15px 12px;
+    border: 1px solid var(--line);
+    border-radius: 11px;
+    background: var(--surface-soft);
+    line-height: 1.65;
+  }
+  .topic-en {
+    display: block;
+    color: var(--accent);
+    font-size: 1rem;
+    font-weight: 700;
+    direction: ltr;
+    text-align: left;
+    overflow-wrap: anywhere;
+  }
+  .topic-ar {
+    display: block;
+    color: var(--muted);
+    font-size: 1rem;
+    direction: rtl;
+    text-align: right;
+  }
+  .optional .section-heading { border-right-color: #576db5; }
+  .optional .stage-card { border-style: dashed; }
+
+  footer {
+    margin-top: 64px;
+    padding-top: 22px;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1.8;
+    text-align: center;
+  }
+
+  @media (max-width: 640px) {
+    body { font-size: 18px; }
+    .page { width: min(100% - 28px, 900px); padding: 20px 0 54px; }
+    .hero { padding: 23px 20px 25px; border-radius: 17px; }
+    h1 { font-size: clamp(2rem, 9vw, 2.7rem); margin-bottom: 20px; }
+    .intro p { font-size: 1.03rem; line-height: 1.95; margin-bottom: 15px; }
+    .intro p:first-child { font-size: 1.08rem; }
+    .plan-section { margin-top: 43px; }
+    .section-heading { padding-right: 14px; margin-bottom: 19px; }
+    .section-heading h2 { font-size: 1.45rem; }
+    .section-description { font-size: 1rem; }
+    .stage-grid { gap: 15px; }
+    .stage-card { padding: 20px 17px 21px; border-radius: 14px; }
+    .stage-heading { gap: 8px; margin-bottom: 13px; }
+    .stage-number { width: 38px; min-height: 38px; font-size: 1.02rem; }
+    .stage-title-ar { font-size: 1.18rem; }
+    .stage-title-en { font-size: 1.1rem; }
+    .stage-description { font-size: 1.02rem; line-height: 1.9; margin-bottom: 16px; }
+    .topic { padding: 9px 12px 10px; }
+    .topic-en, .topic-ar { font-size: .96rem; }
+  }
+
+  @media print {
+    :root { --page: #ffffff; --surface: #ffffff; --surface-soft: #fcfcfc; --text: #576db5; --muted: #576db5; --line: #fcfcfc; }
+    body { background: #ffffff; font-size: 15px; }
+    .page { width: 100%; padding: 0; }
+    .hero, .stage-card { box-shadow: none; break-inside: avoid; }
+    .plan-section { break-before: auto; }
+    .stage-grid { gap: 10px; }
+    .stage-card { padding: 14px 16px; }
+    .topic { break-inside: avoid; }
+  }
+
+
+  /* Compact, readable bilingual layout — content, palette, and font unchanged. */
+  body { font-size: 20px; line-height: 1.72; }
+  .page { width: min(100% - 40px, 980px); padding-top: 32px; }
+  .hero { padding: clamp(24px, 4vw, 38px); }
+  .intro p { font-size: 1.06rem; line-height: 1.78; margin-bottom: 12px; }
+  .intro p:first-child { font-size: 1.1rem; }
+  .stats { flex-direction: row; flex-wrap: wrap; gap: 8px 22px; margin-top: 20px; }
+  .plan-section { margin-top: 42px; }
+  .section-heading { margin-bottom: 18px; }
+  .section-description { margin-top: 5px; font-size: 1rem; line-height: 1.7; }
+  .stage-grid { gap: 14px; }
+  .stage-card { padding: 19px 23px 21px; }
+  .stage-heading { flex-direction: row; align-items: center; gap: 13px; margin-bottom: 10px; }
+  .stage-number { flex: 0 0 40px; width: 40px; min-height: 40px; }
+  .stage-title { flex: 1; flex-direction: row; flex-wrap: wrap; align-items: baseline; column-gap: 12px; row-gap: 0; }
+  .stage-title-ar { font-size: 1.22rem; line-height: 1.5; }
+  .stage-title-en { font-size: 1.12rem; line-height: 1.5; overflow-wrap: normal; }
+  .stage-description { font-size: 1.04rem; line-height: 1.78; margin-bottom: 13px; }
+  .topics { gap: 7px; }
+  .topic { flex-direction: row; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 12px; padding: 8px 12px; line-height: 1.5; }
+  .topic-en, .topic-ar { flex: 1 1 auto; width: auto; font-size: 1rem; }
+  .topic-en { text-align: left; overflow-wrap: break-word; }
+  .topic-ar { text-align: right; }
+  footer { margin-top: 42px; }
+
+  @media (max-width: 640px) {
+    body { font-size: 18px; line-height: 1.7; }
+    .page { width: min(100% - 24px, 980px); padding: 16px 0 42px; }
+    .hero { padding: 20px 17px 22px; }
+    .intro p, .intro p:first-child { font-size: 1rem; line-height: 1.75; }
+    .stats { gap: 5px 16px; }
+    .plan-section { margin-top: 34px; }
+    .section-heading { margin-bottom: 15px; }
+    .section-heading h2 { font-size: 1.38rem; line-height: 1.45; }
+    .section-description { font-size: .98rem; }
+    .stage-grid { gap: 12px; }
+    .stage-card { padding: 16px 13px 17px; }
+    .stage-heading { gap: 10px; }
+    .stage-number { flex-basis: 36px; width: 36px; min-height: 36px; }
+    .stage-title { column-gap: 8px; }
+    .stage-title-ar { font-size: 1.08rem; }
+    .stage-title-en { font-size: 1rem; }
+    .stage-description { font-size: .98rem; line-height: 1.72; }
+    .topic { padding: 7px 9px; gap: 1px 8px; }
+    .topic-en, .topic-ar { font-size: .94rem; }
+  }
+
+
+  /* Correct mixed-language alignment: Arabic on the right, English on the left. */
+  .stage-title {
+    direction: rtl;
+  }
+  .stage-title-ar {
+    direction: rtl;
+    text-align: right;
+  }
+  .stage-title-en {
+    direction: ltr;
+    text-align: left;
+  }
+  .topic {
+    direction: ltr;
+  }
+  .topic-en {
+    direction: ltr;
+    text-align: left;
+  }
+  .topic-ar {
+    direction: rtl;
+    text-align: right;
+  }
+  .section-heading h2[dir="rtl"] {
+    direction: rtl;
+    text-align: right;
+  }
+  .section-heading h2[dir="ltr"] {
+    direction: ltr;
+    text-align: left;
+  }
+
+
+  /* Keep the existing blue/purple palette distinct across every backend group. */
+  .backend-section {
+    --accent: #576db5;
+    --text: #576db5;
+    --muted: #b378a6;
+  }
+  .backend-section .section-kicker,
+  .backend-section .section-heading h2,
+  .backend-section .stage-title-en,
+  .backend-section .topic-en {
+    color: #576db5;
+  }
+  .backend-section .section-description,
+  .backend-section .stage-title-ar,
+  .backend-section .stage-description,
+  .backend-section .topic-ar {
+    color: #b378a6;
+  }
+</style>
+</head>
+<body>
+<main class="page">
+<header class="hero">
+<div class="eyebrow">خطة التعلّم الهندسي</div>
+<h1>Software Engineering Mindset</h1>
+<div class="intro">
+<p>خطة Software Engineering Mindset برنامج تعلّم متكامل يهدف إلى بناء فهم هندسي متين يمكّن من تحليل المشكلات، وفهم سلوك الأنظمة، واتخاذ قرارات تقنية مبررة، وتطوير برمجيات موثوقة قابلة للاختبار والصيانة والتوسع.</p>
+<p>تبدأ الخطة بالأسس الرياضية في ثلاثين مرحلة موزعة على أربعة أقسام: الأساس الرياضي، والرياضيات المتقطعة، ورياضيات الأداء والتحليل، والرياضيات الاختيارية.</p>
+<p>وهي قاعدة التفكير المنطقي والبراهين وتحليل التعقيد والاحتمال والإحصاء. ولا يلزم إنهاؤها كلها قبل بدء الـ Backend؛ فوصف كل مرحلة رياضية يحدد موضع تطبيقها في الـ Backend، ووصف كل مرحلة خلفية يذكر الرياضيات المرتبطة بها، فيمكن دراسة الاثنين بالتوازي.</p>
+<p>ثم تنتقل إلى هندسة الـ Backend في ثلاث وأربعين مرحلة موزعة على أربع عشرة مجموعة، تعتمد على Python وPostgreSQL، وتتخذ FastAPI أساسًا للمسار التطبيقي لتطوير الخدمات الخلفية.</p>
+<p>وتسير المجموعات بتدرج مدروس: تبدأ ببيئة العمل وإتقان Python، ثم قواعد البيانات العلائقية وبروتوكول HTTP وتصميم واجهات REST، ثم بناء الخدمات بـ FastAPI، ثم البنى والخوارزميات التي تحكم الأداء، وبعدها أنظمة التشغيل والتزامن، فتصميم البرمجيات والاختبار وجودة الكود، ثم أمان التطبيقات، ثم التخزين المؤقت والمراسلة والاتصال اللحظي، ثم المعمارية وقابلية التوسع، وتنتهي بنشر الخدمة في بيئة الإنتاج ومراقبتها، مع مجموعة اختيارية للتوسع بعد اكتمال الأساس.</p>
+<p>وكل مرحلة تضم ثلاثة موضوعات تُدرس وتُطبق عمليًا كوحدة واحدة، وتختم كل مجموعة بتطبيق عملي له معيار نجاح واضح، وتبلغ ذروتها في مشروع ختامي هو خدمة حجوزات متكاملة جاهزة للإنتاج، تُحدَّد كياناتها وقواعدها ومتطلبات أدائها وقراراتها التقنية في ملف مواصفات مستقل (Booking Service Spec)، بحيث تتحول المعرفة النظرية إلى قدرة هندسية قابلة للتطبيق.</p>
+</div>
+<div aria-label="ملخص الخطة" class="stats">
+<span class="stat"><strong>30</strong> مرحلة رياضية</span>
+<span class="stat"><strong>4</strong> أقسام رياضية</span>
+<span class="stat"><strong>43</strong> مرحلة Backend</span>
+<span class="stat"><strong>14</strong> مجموعة</span>
+</div>
+</header>
+<section class="plan-section math-section">
+<div class="section-heading">
+<div class="section-kicker">MATHEMATICS</div>
+<h2 dir="rtl">الأساس الرياضي - Basic Mathematics</h2>
+<p class="section-description">المفاهيم الحسابية والجبرية التي تدعم القياس والتعامل مع الصيغ.</p>
+</div>
+<div class="stage-grid"><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">١</span><div class="stage-title"><span class="stage-title-ar">الحساب والكسور والنسب</span><span class="stage-title-en" dir="ltr">Arithmetic, Fractions, Ratios</span></div></div>
+<p class="stage-description">إتقان العمليات الأساسية والتعامل مع الأعداد الصحيحة والسالبة والكسور والعشريات، ثم استخدام النسب والتناسب والمئويات في القياس والتقدير.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Arithmetic Operations</span><span class="topic-ar">العمليات الحسابية الأساسية</span></li><li class="topic"><span class="topic-en" dir="ltr">Fractions &amp; Decimals</span><span class="topic-ar">الكسور والأعداد العشرية</span></li><li class="topic"><span class="topic-en" dir="ltr">Ratios &amp; Percentages</span><span class="topic-ar">النسب والتناسب والمئويات</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">٢</span><div class="stage-title"><span class="stage-title-ar">القيمة المطلقة والقوى والجذور</span><span class="stage-title-en" dir="ltr">Absolute Value, Powers</span></div></div>
+<p class="stage-description">فهم القيمة المطلقة والجزء الصحيح وعمليتي Floor وCeiling، وضبط ترتيب العمليات، مع استخدام القوى والجذور في قراءة الصيغ وأحجام البيانات.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Absolute Value &amp; Integers</span><span class="topic-ar">القيمة المطلقة والأعداد الصحيحة</span></li><li class="topic"><span class="topic-en" dir="ltr">Floor, Ceiling &amp; Order</span><span class="topic-ar">التقريب وترتيب العمليات</span></li><li class="topic"><span class="topic-en" dir="ltr">Powers &amp; Roots</span><span class="topic-ar">القوى والأسس والجذور</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">٣</span><div class="stage-title"><span class="stage-title-ar">المتغيرات والمعادلات</span><span class="stage-title-en" dir="ltr">Variables, Equations</span></div></div>
+<p class="stage-description">التعامل مع المتغيرات والثوابت والتعبيرات الجبرية، وتبسيطها وحل المعادلات والمتباينات والأنظمة؛ لصياغة المسائل بصورة رمزية دقيقة.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Variables &amp; Constants</span><span class="topic-ar">المتغيرات والثوابت</span></li><li class="topic"><span class="topic-en" dir="ltr">Expressions &amp; Simplification</span><span class="topic-ar">التعبيرات وتبسيطها</span></li><li class="topic"><span class="topic-en" dir="ltr">Equations &amp; Inequalities</span><span class="topic-ar">المعادلات والمتباينات</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">٤</span><div class="stage-title"><span class="stage-title-ar">الدوال: المجال والمدى</span><span class="stage-title-en" dir="ltr">Functions, Domain, Range</span></div></div>
+<p class="stage-description">فهم الدالة بوصفها تحويلًا من مدخلات إلى مخرجات، وتحديد مجالها ومداها، وقراءتها من الجداول والرسوم، مع التمييز بين الدوال الخطية والتربيعية.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Functions &amp; Mappings</span><span class="topic-ar">مفهوم الدوال والعلاقات</span></li><li class="topic"><span class="topic-en" dir="ltr">Domain &amp; Range</span><span class="topic-ar">المجال والمدى</span></li><li class="topic"><span class="topic-en" dir="ltr">Linear &amp; Quadratic Functions</span><span class="topic-ar">الدوال الخطية والتربيعية</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">٥</span><div class="stage-title"><span class="stage-title-ar">تركيب الدوال والعكسية</span><span class="stage-title-en" dir="ltr">Composition, Inverse</span></div></div>
+<p class="stage-description">تحليل الدوال متعددة التعريف وتركيب دالتين وإيجاد الدالة العكسية عند تحقق شروطها، لفهم بناء التحويلات المتتابعة والعلاقات بين المتغيرات.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Piecewise Functions</span><span class="topic-ar">الدوال متعددة التعريف</span></li><li class="topic"><span class="topic-en" dir="ltr">Function Composition</span><span class="topic-ar">تركيب الدوال</span></li><li class="topic"><span class="topic-en" dir="ltr">Inverse Functions</span><span class="topic-ar">الدوال العكسية</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">٦</span><div class="stage-title"><span class="stage-title-ar">قوانين الأسس واللوغاريتمات</span><span class="stage-title-en" dir="ltr">Exponent &amp; Log Rules</span></div></div>
+<p class="stage-description">تطبيق قوانين الأسس واللوغاريتمات والتحويل بينها، وفهم العلاقة العكسية التي تساعد لاحقًا على تبسيط المعادلات وتحليل معدلات النمو.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Exponent Laws</span><span class="topic-ar">قوانين الأسس</span></li><li class="topic"><span class="topic-en" dir="ltr">Logarithms &amp; Their Laws</span><span class="topic-ar">اللوغاريتمات وقوانينها</span></li><li class="topic"><span class="topic-en" dir="ltr">Exponential–Log Relationship</span><span class="topic-ar">العلاقة بين الأسس واللوغاريتمات</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">٧</span><div class="stage-title"><span class="stage-title-ar">لوغاريتم الأساس 2 والنمو</span><span class="stage-title-en" dir="ltr">Base-2 Log, Growth</span></div></div>
+<p class="stage-description">استخدام لوغاريتم الأساس 2 وتغيير الأساس، والتمييز بين النمو الأسي واللوغاريتمي وربط ذلك بتقسيم البيانات والبحث وكفاءة الخوارزميات.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Base-2 Logarithms</span><span class="topic-ar">لوغاريتم الأساس 2</span></li><li class="topic"><span class="topic-en" dir="ltr">Change of Base</span><span class="topic-ar">تغيير أساس اللوغاريتم</span></li><li class="topic"><span class="topic-en" dir="ltr">Exponential vs. Logarithmic Growth</span><span class="topic-ar">النمو الأسي واللوغاريتمي</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">٨</span><div class="stage-title"><span class="stage-title-ar">التفكير الرياضي وحل المسائل</span><span class="stage-title-en" dir="ltr">Problem Solving</span></div></div>
+<p class="stage-description">اتباع منهجية منظمة تبدأ بفهم المعطيات والمطلوب، ثم تفكيك المسألة وتجربة أمثلة صغيرة واكتشاف الأنماط، وتنتهي بفحص الحل والحالات الحدية.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Problem Decomposition</span><span class="topic-ar">تفكيك المسألة</span></li><li class="topic"><span class="topic-en" dir="ltr">Pattern &amp; Edge-Case Analysis</span><span class="topic-ar">اكتشاف الأنماط والحالات الحدية</span></li><li class="topic"><span class="topic-en" dir="ltr">Solution Verification</span><span class="topic-ar">التحقق من صحة الحل</span></li></ul>
+</article></div>
+</section>
+<section class="plan-section math-section">
+<div class="section-heading">
+<div class="section-kicker">MATHEMATICS</div>
+<h2 dir="rtl">الرياضيات المتقطعة - Discrete Mathematics</h2>
+<p class="section-description">المنطق والمجموعات والعلاقات والعد والرسوم البيانية بوصفها لغة دقيقة لبناء البرمجيات.</p>
+</div>
+<div class="stage-grid"><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">٩</span><div class="stage-title"><span class="stage-title-ar">المنطق والقضايا</span><span class="stage-title-en" dir="ltr">Propositions, Truth Tables</span></div></div>
+<p class="stage-description">بناء أساس منطقي عبر القضايا والروابط وجداول الصواب، وفهم الشرط والتكافؤ؛ لقراءة التعبيرات المنطقية التي تظهر في الكود والاستعلامات. ويُطبَّق في المرحلة 6 من الـ Backend عند قراءة شروط WHERE وفهم منطق NULL ثلاثي القيم.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Propositions &amp; Connectives</span><span class="topic-ar">القضايا والروابط المنطقية</span></li><li class="topic"><span class="topic-en" dir="ltr">Truth Tables</span><span class="topic-ar">جداول الصواب</span></li><li class="topic"><span class="topic-en" dir="ltr">Implication &amp; Equivalence</span><span class="topic-ar">الشرط والتكافؤ المنطقي</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">١٠</span><div class="stage-title"><span class="stage-title-ar">المحمولات وطرق البرهان</span><span class="stage-title-en" dir="ltr">Predicates, Proofs</span></div></div>
+<p class="stage-description">صياغة العبارات باستخدام المحمولات والكمّيات، وتطبيق قواعد الاستدلال وأساليب البرهان المباشر والعكسي وبالتناقض والحالات لإثبات صحة النتائج.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Predicates &amp; Quantifiers</span><span class="topic-ar">المحمولات والكمّيات</span></li><li class="topic"><span class="topic-en" dir="ltr">Rules of Inference</span><span class="topic-ar">قواعد الاستدلال</span></li><li class="topic"><span class="topic-en" dir="ltr">Proof Techniques</span><span class="topic-ar">أساليب البرهان</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">١١</span><div class="stage-title"><span class="stage-title-ar">نظرية المجموعات</span><span class="stage-title-en" dir="ltr">Set Theory</span></div></div>
+<p class="stage-description">دراسة المجموعات واحتواءها والعمليات عليها، إلى جانب الضرب الديكارتي ومجموعة الأجزاء؛ لفهم نماذج العلاقات وتنظيم البيانات. ويُطبَّق في المرحلة 6 من الـ Backend، إذ تقوم عمليات UNION وINTERSECT والـ JOINs على مفاهيم المجموعات.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Sets &amp; Subsets</span><span class="topic-ar">المجموعات والمجموعات الجزئية</span></li><li class="topic"><span class="topic-en" dir="ltr">Set Operations</span><span class="topic-ar">عمليات المجموعات</span></li><li class="topic"><span class="topic-en" dir="ltr">Cartesian Product &amp; Power Set</span><span class="topic-ar">الضرب الديكارتي ومجموعة الأجزاء</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">١٢</span><div class="stage-title"><span class="stage-title-ar">العلاقات والدوال الخاصة</span><span class="stage-title-en" dir="ltr">Relations, Bijections</span></div></div>
+<p class="stage-description">تحليل العلاقات وفق خصائصها، والتمييز بين التكافؤ والترتيب الجزئي، وفهم أنواع الدوال من حيث التباين والشمول والتقابل. ويُطبَّق في المرحلتين 6 و7 من الـ Backend: العلاقات والمفاتيح في النموذج العلائقي، والتبعيات الدالية في التطبيع.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Relations &amp; Properties</span><span class="topic-ar">العلاقات وخصائصها</span></li><li class="topic"><span class="topic-en" dir="ltr">Equivalence &amp; Partial Orders</span><span class="topic-ar">علاقات التكافؤ والترتيب الجزئي</span></li><li class="topic"><span class="topic-en" dir="ltr">Injective, Surjective &amp; Bijective Maps</span><span class="topic-ar">الدوال المتباينة والشاملة والتقابلية</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">١٣</span><div class="stage-title"><span class="stage-title-ar">العد والتوافيق ١</span><span class="stage-title-en" dir="ltr">Permutations, Combinations</span></div></div>
+<p class="stage-description">حساب عدد الحالات باستخدام قاعدتي الجمع والضرب والتباديل والتوافيق ومعاملات ذات الحدين، وتقدير حجم فضاء البحث قبل اختيار الحل. ويُطبَّق في المرحلة 22 من الـ Backend لتقدير حجم فضاء البحث قبل اختيار Backtracking.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Sum &amp; Product Rules</span><span class="topic-ar">قاعدتا الجمع والضرب</span></li><li class="topic"><span class="topic-en" dir="ltr">Permutations &amp; Combinations</span><span class="topic-ar">التباديل والتوافيق</span></li><li class="topic"><span class="topic-en" dir="ltr">Binomial Coefficients</span><span class="topic-ar">معاملات ذات الحدين</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">١٤</span><div class="stage-title"><span class="stage-title-ar">العد والتوافيق ٢</span><span class="stage-title-en" dir="ltr">Pigeonhole, Inclusion-Exclusion</span></div></div>
+<p class="stage-description">توسيع أدوات العد باستخدام مبدأ صندوق الحمام والعد مع التكرار أو بدونه ومبدأ الاشتمال والاستبعاد لمعالجة المسائل المركبة.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Pigeonhole Principle</span><span class="topic-ar">مبدأ صندوق الحمام</span></li><li class="topic"><span class="topic-en" dir="ltr">Counting with Repetition</span><span class="topic-ar">العد مع التكرار ودونه</span></li><li class="topic"><span class="topic-en" dir="ltr">Inclusion–Exclusion</span><span class="topic-ar">مبدأ الاشتمال والاستبعاد</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">١٥</span><div class="stage-title"><span class="stage-title-ar">الاستقراء والتعريفات العودية</span><span class="stage-title-en" dir="ltr">Induction, Recursion</span></div></div>
+<p class="stage-description">إتقان الاستقراء الرياضي والاستقراء القوي، وبناء تعريفات عودية، واستخدامها لإثبات خصائص المتتاليات والخوارزميات ذات البنية التكرارية. ويُطبَّق في المرحلة 22 من الـ Backend في بناء الحلول العودية.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Mathematical Induction</span><span class="topic-ar">الاستقراء الرياضي</span></li><li class="topic"><span class="topic-en" dir="ltr">Strong Induction</span><span class="topic-ar">الاستقراء القوي</span></li><li class="topic"><span class="topic-en" dir="ltr">Recursive Definitions</span><span class="topic-ar">التعريفات العودية</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">١٦</span><div class="stage-title"><span class="stage-title-ar">المتتاليات والعلاقات العودية</span><span class="stage-title-en" dir="ltr">Sequences, Recurrences</span></div></div>
+<p class="stage-description">تحليل المتتاليات والمجاميع والعلاقات العودية، واستخدام الفك المتكرر في حل الحالات البسيطة وتقدير تكلفة الخوارزميات العودية. ويُطبَّق في المرحلة 21 من الـ Backend لتحليل تكلفة Merge Sort والبحث الثنائي.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Arithmetic &amp; Geometric Sequences</span><span class="topic-ar">المتتاليات الحسابية والهندسية</span></li><li class="topic"><span class="topic-en" dir="ltr">Summation Notation</span><span class="topic-ar">رمز المجموع والمجاميع الشائعة</span></li><li class="topic"><span class="topic-en" dir="ltr">Recurrence Relations</span><span class="topic-ar">العلاقات العودية</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">١٧</span><div class="stage-title"><span class="stage-title-ar">نظرية الأعداد</span><span class="stage-title-en" dir="ltr">Number Theory, Modular Arithmetic</span></div></div>
+<p class="stage-description">فهم القسمة والأعداد الأولية والقاسم المشترك الأكبر وخوارزمية إقليدس، ثم تطبيق الحساب المعياري والتطابقات في موضوعات التجزئة والتشفير. ويُطبَّق في المرحلتين 19 و37 من الـ Backend: دوال التجزئة وجداول Hash، وتوزيع المفاتيح على الأجزاء في Sharding.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Divisibility &amp; Primes</span><span class="topic-ar">القسمة والأعداد الأولية</span></li><li class="topic"><span class="topic-en" dir="ltr">GCD &amp; Euclidean Algorithm</span><span class="topic-ar">القاسم المشترك وخوارزمية إقليدس</span></li><li class="topic"><span class="topic-en" dir="ltr">Modular Arithmetic</span><span class="topic-ar">الحساب بترديد عدد</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">١٨</span><div class="stage-title"><span class="stage-title-ar">الأنظمة العددية</span><span class="stage-title-en" dir="ltr">Binary, Hex, Two’s Complement</span></div></div>
+<p class="stage-description">قراءة التمثيلات الثنائية والثمانية والسداسية عشرية والتحويل بينها، وفهم المتمم الثنائي لتمثيل الأعداد السالبة داخل الذاكرة. ويُطبَّق في المرحلتين 1 و24 من الـ Backend: صلاحيات الملفات بالنظام الثماني في لينكس، وتمثيل العناوين والذاكرة الافتراضية.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Binary, Octal &amp; Hexadecimal</span><span class="topic-ar">الأنظمة الثنائي والثماني والسداسي عشري</span></li><li class="topic"><span class="topic-en" dir="ltr">Base Conversion</span><span class="topic-ar">التحويل بين الأنظمة</span></li><li class="topic"><span class="topic-en" dir="ltr">Two’s Complement</span><span class="topic-ar">المتمم الثنائي وتمثيل السوالب</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">١٩</span><div class="stage-title"><span class="stage-title-ar">العمليات على البت</span><span class="stage-title-en" dir="ltr">Bitwise, Boolean Algebra</span></div></div>
+<p class="stage-description">إجراء العمليات على مستوى البت، وفهم الجبر المنطقي والبوابات، واستخدام الأقنعة والأعلام الثنائية لتمثيل الحالات والتحكم منخفض المستوى. ويُطبَّق في المرحلة 25 من الـ Backend في أعلام الملفات وأقنعة الأحداث مثل epoll.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Bitwise Operators</span><span class="topic-ar">عمليات البت</span></li><li class="topic"><span class="topic-en" dir="ltr">Boolean Algebra &amp; Logic Gates</span><span class="topic-ar">الجبر المنطقي والبوابات</span></li><li class="topic"><span class="topic-en" dir="ltr">Masks &amp; Bit Flags</span><span class="topic-ar">الأقنعة والأعلام الثنائية</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">٢٠</span><div class="stage-title"><span class="stage-title-ar">الرسوم البيانية ١</span><span class="stage-title-en" dir="ltr">Vertices, Edges, Weights</span></div></div>
+<p class="stage-description">تمثيل الأنظمة والعلاقات باستخدام العقد والحواف، والتمييز بين الرسوم الموجهة وغير الموجهة والموزونة وفهم دلالة كل نموذج. ويُطبَّق في المرحلة 20 من الـ Backend عند تمثيل الرسوم بقوائم الجوار والمصفوفات.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Vertices &amp; Edges</span><span class="topic-ar">العقد والحواف</span></li><li class="topic"><span class="topic-en" dir="ltr">Directed &amp; Undirected Graphs</span><span class="topic-ar">الرسوم الموجهة وغير الموجهة</span></li><li class="topic"><span class="topic-en" dir="ltr">Weighted Graphs</span><span class="topic-ar">الرسوم الموزونة</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">٢١</span><div class="stage-title"><span class="stage-title-ar">الرسوم البيانية ٢</span><span class="stage-title-en" dir="ltr">Paths, Trees, DAGs</span></div></div>
+<p class="stage-description">تحليل المسارات والدورات والاتصال، والتعرف على الأشجار والرسوم الثنائية وDAGs بوصفها نماذج للاعتماديات وترتيب تنفيذ المهام. ويُطبَّق في المرحلة 23 من الـ Backend في BFS وDFS والفرز الطوبولوجي.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Paths, Cycles &amp; Connectivity</span><span class="topic-ar">المسارات والدورات والاتصال</span></li><li class="topic"><span class="topic-en" dir="ltr">Trees &amp; Bipartite Graphs</span><span class="topic-ar">الأشجار والرسوم الثنائية</span></li><li class="topic"><span class="topic-en" dir="ltr">DAGs &amp; Dependencies</span><span class="topic-ar">الرسوم غير الدورية والاعتمادات</span></li></ul>
+</article></div>
+</section>
+<section class="plan-section math-section">
+<div class="section-heading">
+<div class="section-kicker">MATHEMATICS</div>
+<h2 dir="rtl">رياضيات الأداء والتحليل - Performance Math</h2>
+<p class="section-description">أدوات تحليل الكفاءة وعدم اليقين وقراءة البيانات والمؤشرات التشغيلية.</p>
+</div>
+<div class="stage-grid"><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">٢٢</span><div class="stage-title"><span class="stage-title-ar">التحليل التقاربي</span><span class="stage-title-en" dir="ltr">Big-O, Theta, Omega</span></div></div>
+<p class="stage-description">قياس كفاءة الخوارزميات بدلالة حجم المدخلات، وفهم التعقيدين الزمني والمكاني، واستخدام Big-O وTheta وOmega لوصف النمو التقاربي. وهذه المرحلة للجانب النظري والاشتقاق؛ أما القياس العملي بـ timeit فمكانه المرحلة 21 من الـ Backend.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Input Size &amp; Complexity</span><span class="topic-ar">حجم المدخلات والتعقيد</span></li><li class="topic"><span class="topic-en" dir="ltr">Time &amp; Space Complexity</span><span class="topic-ar">التعقيد الزمني والمكاني</span></li><li class="topic"><span class="topic-en" dir="ltr">Big-O, Theta &amp; Omega</span><span class="topic-ar">رموز Big-O وTheta وOmega</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">٢٣</span><div class="stage-title"><span class="stage-title-ar">مقارنة معدلات النمو</span><span class="stage-title-en" dir="ltr">Growth Rates, Worst Case</span></div></div>
+<p class="stage-description">مقارنة فئات النمو وتحديد أثرها عند ازدياد المدخلات، مع التمييز بين أفضل حالة ومتوسط الحالة وأسوأها عند تقييم الحلول. ويُقارَن هذا التحليل النظري بالقياس الفعلي في المرحلة 21 من الـ Backend وبسلوك الفهارس في المرحلة 10.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Common Growth Classes</span><span class="topic-ar">معدلات النمو الشائعة</span></li><li class="topic"><span class="topic-en" dir="ltr">Asymptotic Comparison</span><span class="topic-ar">المقارنة التقاربية</span></li><li class="topic"><span class="topic-en" dir="ltr">Best, Average &amp; Worst Cases</span><span class="topic-ar">الحالات الأفضل والمتوسطة والأسوأ</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">٢٤</span><div class="stage-title"><span class="stage-title-ar">الاحتمالات ١</span><span class="stage-title-en" dir="ltr">Conditional Probability, Bayes</span></div></div>
+<p class="stage-description">نمذجة التجارب بفضاء العينة والأحداث، وتطبيق قواعد الاحتمال والاستقلال والاحتمال الشرطي ونظرية بايز في تحليل عدم اليقين. ويُطبَّق في المرحلة 19 من الـ Backend لتقدير احتمال التصادم في جداول التجزئة.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Sample Space &amp; Events</span><span class="topic-ar">فضاء العينة والأحداث</span></li><li class="topic"><span class="topic-en" dir="ltr">Probability Rules &amp; Independence</span><span class="topic-ar">قواعد الاحتمال والاستقلال</span></li><li class="topic"><span class="topic-en" dir="ltr">Conditional Probability &amp; Bayes</span><span class="topic-ar">الاحتمال الشرطي ونظرية بايز</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">٢٥</span><div class="stage-title"><span class="stage-title-ar">الاحتمالات ٢</span><span class="stage-title-en" dir="ltr">Random Variables, Distributions</span></div></div>
+<p class="stage-description">فهم المتغيرات العشوائية والقيمة المتوقعة والتباين، والتعرف على التوزيعات الشائعة واستخدامها لوصف سلوك الأحداث والأنظمة. ويُطبَّق في المرحلة 42 من الـ Backend لنمذجة وصول الطلبات واختيار سيناريوهات اختبار الحمل.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Random Variables</span><span class="topic-ar">المتغيرات العشوائية</span></li><li class="topic"><span class="topic-en" dir="ltr">Expected Value &amp; Variance</span><span class="topic-ar">القيمة المتوقعة والتباين</span></li><li class="topic"><span class="topic-en" dir="ltr">Common Distributions</span><span class="topic-ar">التوزيعات الاحتمالية المهمة</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">٢٦</span><div class="stage-title"><span class="stage-title-ar">الإحصاء ١</span><span class="stage-title-en" dir="ltr">Mean, Variance, Percentiles</span></div></div>
+<p class="stage-description">تلخيص البيانات بالمتوسط والوسيط والمنوال، وقياس التشتت بالتباين والانحراف المعياري، وقراءة المئينات لفهم توزيع النتائج. ويُطبَّق في المرحلتين 10 و42 من الـ Backend: مقارنة أزمنة الاستعلامات قبل التحسين وبعده، وتحديد أهداف p95 وp99.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Mean, Median &amp; Mode</span><span class="topic-ar">المتوسط والوسيط والمنوال</span></li><li class="topic"><span class="topic-en" dir="ltr">Variance &amp; Standard Deviation</span><span class="topic-ar">التباين والانحراف المعياري</span></li><li class="topic"><span class="topic-en" dir="ltr">Percentiles</span><span class="topic-ar">المئينات</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">٢٧</span><div class="stage-title"><span class="stage-title-ar">الإحصاء ٢</span><span class="stage-title-en" dir="ltr">Sampling, Confidence Intervals</span></div></div>
+<p class="stage-description">فهم أساليب أخذ العينات وحدود الاستنتاج منها، والتمييز بين الارتباط والسببية، وقراءة فترات الثقة واختبارات الفرضيات على المستوى المفاهيمي. ويُطبَّق في المرحلتين 21 و42 من الـ Backend للتمييز بين فروق القياس العشوائية والتحسن الحقيقي عند تكرار التجارب.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Sampling Methods</span><span class="topic-ar">أساليب أخذ العينات</span></li><li class="topic"><span class="topic-en" dir="ltr">Correlation vs. Causation</span><span class="topic-ar">الارتباط والسببية</span></li><li class="topic"><span class="topic-en" dir="ltr">Confidence Intervals &amp; Hypothesis Tests</span><span class="topic-ar">فترات الثقة واختبار الفرضيات</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">٢٨</span><div class="stage-title"><span class="stage-title-ar">التطبيق في هندسة البرمجيات</span><span class="stage-title-en" dir="ltr">Latency, Availability, Nines</span></div></div>
+<p class="stage-description">تطبيق الإحصاء والاحتمالات على مؤشرات الأنظمة: زمن الاستجابة ومئيناته، ومعدل الإنجاز والأخطاء، وقياس التوافر والاعتمادية دون الخلط بين الضوضاء والتحسن الحقيقي. ويُطبَّق في المرحلتين 38 و42 من الـ Backend: حساب التوافر المستهدف (nines) في تصميم المرونة، وتحديد SLO وقياس p95 وp99 في المراقبة واختبار الحمل.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Latency &amp; Percentiles</span><span class="topic-ar">زمن الاستجابة والمئينات</span></li><li class="topic"><span class="topic-en" dir="ltr">Throughput &amp; Error Rates</span><span class="topic-ar">معدل الإنجاز ومعدلات الأخطاء</span></li><li class="topic"><span class="topic-en" dir="ltr">Availability &amp; Reliability</span><span class="topic-ar">التوافر والاعتمادية</span></li></ul>
+</article></div>
+</section>
+<section class="plan-section math-section optional">
+<div class="section-heading">
+<div class="section-kicker">MATHEMATICS</div>
+<h2 dir="rtl">الرياضيات الاختيارية - Optional Mathematics</h2>
+<p class="section-description">موضوعات رياضية إضافية توسّع الخلفية عند الحاجة إلى مجالات متخصصة.</p>
+</div>
+<div class="stage-grid"><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">٢٩</span><div class="stage-title"><span class="stage-title-ar">الجبر الخطي</span><span class="stage-title-en" dir="ltr">Linear Algebra</span></div></div>
+<p class="stage-description">التعرف على المتجهات والمصفوفات والعمليات الأساسية والضرب القياسي، بوصفها أدوات رياضية تُستخدم في الرسوميات والتعلم الآلي ومجالات أخرى.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Vectors &amp; Operations</span><span class="topic-ar">المتجهات والعمليات عليها</span></li><li class="topic"><span class="topic-en" dir="ltr">Matrices &amp; Matrix Operations</span><span class="topic-ar">المصفوفات والعمليات عليها</span></li><li class="topic"><span class="topic-en" dir="ltr">Dot Product</span><span class="topic-ar">الضرب القياسي</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">٣٠</span><div class="stage-title"><span class="stage-title-ar">التفاضل</span><span class="stage-title-en" dir="ltr">Calculus</span></div></div>
+<p class="stage-description">فهم النهايات والمشتقات ومعدلات التغير، واستخدامها لتفسير تغير الكميات ومبادئ التحسين في المسائل التي تحتاج إلى نمذجة مستمرة.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Limits</span><span class="topic-ar">النهايات</span></li><li class="topic"><span class="topic-en" dir="ltr">Derivatives</span><span class="topic-ar">المشتقات</span></li><li class="topic"><span class="topic-en" dir="ltr">Rates of Change &amp; Optimization</span><span class="topic-ar">معدلات التغير والتحسين</span></li></ul>
+</article></div>
+</section>
+<section class="plan-section backend-section">
+<div class="section-heading">
+<div class="section-kicker">BACKEND GROUP 01</div>
+<h2 dir="ltr">Dev Foundations</h2>
+<p class="section-description">تهيئة بيئة تطوير منظمة وقابلة للتكرار قبل بناء التطبيق. التطبيق العملي: مستودع Git يتضمن README وسير عمل واضحًا للفروع وطلبات الدمج.</p>
+</div>
+<div class="stage-grid"><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">1</span><div class="stage-title"><span class="stage-title-en" dir="ltr">Git, Linux &amp; Tooling</span></div></div>
+<p class="stage-description">إعداد بيئة تطوير قابلة للتكرار، وإدارة تغييرات المشروع عبر Git والفروع وطلبات الدمج، واستخدام Linux CLI، وعزل الاعتمادات داخل بيئات افتراضية. الرياضيات المرتبطة: ١٨.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Branching &amp; PRs</span><span class="topic-ar">التفريع وطلبات الدمج</span></li><li class="topic"><span class="topic-en" dir="ltr">Linux CLI &amp; Shell</span><span class="topic-ar">سطر أوامر لينكس</span></li><li class="topic"><span class="topic-en" dir="ltr">Virtual Environments</span><span class="topic-ar">البيئات المعزولة</span></li></ul>
+</article></div>
+</section>
+<section class="plan-section backend-section">
+<div class="section-heading">
+<div class="section-kicker">BACKEND GROUP 02</div>
+<h2 dir="ltr">Python</h2>
+<p class="section-description">إتقان سلوك Python ونموذج بياناتها وأدوات كتابة كود مضبوط الأنواع وقابل للاختبار. المتطلب السابق: أساسيات Python (الأنواع والتحكم في التدفق والدوال والمجموعات). التطبيق العملي: أداة CLI لإدارة حجوزات محلية مخزنة في ملف JSON وفق ملف المواصفات؛ معيار النجاح: mypy بلا أخطاء، واستثناءات مخصصة بدل الانهيار عند المدخلات الخاطئة، وكود موزع على حزمة (package) من عدة وحدات، واختبارات pytest بمستواها الأساسي (دوال test_ وassert) تغطي المسارات الرئيسية وحالات الخطأ، على أن يتعمق التحقق من pytest في المرحلة 28.</p>
+</div>
+<div class="stage-grid"><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">2</span><div class="stage-title"><span class="stage-title-en" dir="ltr">Object Model &amp; Memory</span></div></div>
+<p class="stage-description">فهم نموذج كائنات Python: لكل كائن هوية ونوع وقيمة، وأسماء المتغيرات مراجع لا صناديق. ثم التمييز بين القيم القابلة للتغيير وغير القابلة له وأثر ذلك على النسخ السطحي والعميق والقيم الافتراضية لمعاملات الدوال، وفهم عدّ المراجع وجمع المهملات وقياس الذاكرة بـ tracemalloc.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Data Model &amp; Identity</span><span class="topic-ar">نموذج البيانات وهوية الكائنات</span></li><li class="topic"><span class="topic-en" dir="ltr">Mutability &amp; References</span><span class="topic-ar">قابلية التغيير والمراجع</span></li><li class="topic"><span class="topic-en" dir="ltr">Memory Model &amp; GC</span><span class="topic-ar">نموذج الذاكرة وجمع المهملات</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">3</span><div class="stage-title"><span class="stage-title-en" dir="ltr">Errors, Modules &amp; Stdlib</span></div></div>
+<p class="stage-description">التعامل مع الأخطاء بوصفها جزءًا من التصميم: استثناءات مخصصة وقراءة Traceback وتتبع الأخطاء بـ pdb وتسجيلها بأساسيات logging. ثم تنظيم الكود في Modules وPackages وفهم نظام import، والتعرف على مكتبات المعيار التي لا يستغني عنها الـ Backend: datetime مع المناطق الزمنية، وdecimal للمبالغ، وenum، وpathlib وjson، والفرق بين str وbytes.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Exceptions &amp; Debugging</span><span class="topic-ar">الاستثناءات والأخطاء المخصصة وتتبعها</span></li><li class="topic"><span class="topic-en" dir="ltr">Modules, Packages &amp; Imports</span><span class="topic-ar">الوحدات والحزم ونظام الاستيراد</span></li><li class="topic"><span class="topic-en" dir="ltr">Stdlib Essentials</span><span class="topic-ar">مكتبة المعيار الأساسية</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">4</span><div class="stage-title"><span class="stage-title-en" dir="ltr">OOP &amp; Typing</span></div></div>
+<p class="stage-description">تصميم نماذج كائنية واضحة باستخدام Classes وdataclasses، وتحديد العقود عبر Protocols وABCs، والاستفادة من Type Hints وmypy أداةً محلية تُشغَّل يدويًا لاكتشاف الأخطاء مبكرًا؛ أما فرضها تلقائيًا كبوابة إلزامية في CI فمكانه المرحلة 29.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Classes &amp; Dataclasses</span><span class="topic-ar">الأصناف</span></li><li class="topic"><span class="topic-en" dir="ltr">Protocols &amp; ABCs</span><span class="topic-ar">الواجهات</span></li><li class="topic"><span class="topic-en" dir="ltr">Type Hints &amp; mypy</span><span class="topic-ar">التلميحات النوعية</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">5</span><div class="stage-title"><span class="stage-title-en" dir="ltr">Runtime Protocols</span></div></div>
+<p class="stage-description">فهم البروتوكولات التي تحكم تنفيذ كود Python: Iterators وGenerators لمعالجة البيانات تدريجيًا دون تحميلها كلها في الذاكرة، ثم نطاق المتغيرات والإغلاقات التي يقوم عليها بناء Decorators، وContext Managers لإدارة الموارد وتحرير الاتصالات والملفات تلقائيًا.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Iterators &amp; Generators</span><span class="topic-ar">المكررات والمولدات</span></li><li class="topic"><span class="topic-en" dir="ltr">Scope, Closures &amp; Decorators</span><span class="topic-ar">النطاق والإغلاقات والمزخرفات</span></li><li class="topic"><span class="topic-en" dir="ltr">Context Managers</span><span class="topic-ar">مديرو السياق</span></li></ul>
+</article></div>
+</section>
+<section class="plan-section backend-section">
+<div class="section-heading">
+<div class="section-kicker">BACKEND GROUP 03</div>
+<h2 dir="ltr">Relational Databases &amp; PostgreSQL</h2>
+<p class="section-description">الانتقال من SQL الأساسي إلى تصميم مخطط موثوق ومعاملات واستعلامات فعالة. المتطلبات السابقة: Python وSQL الأساسي (SELECT وWHERE وINSERT وUPDATE وDELETE)، وتشغيل PostgreSQL محليًا عبر docker run دون التعمق في Docker الذي يُدرَّس في المرحلة 40. التطبيق العملي: تصميم Schema لنظام الحجوزات وفق ملف المواصفات وتحليل استعلاماته باستخدام EXPLAIN؛ معيار النجاح: يستحيل إدخال حجزين متداخلين لنفس المورد حتى من جلستين متزامنتين، وتحسين استعلام على مليون صف مولّدة بـ generate_series بقياس موثّق قبل الفهرس وبعده.</p>
+</div>
+<div class="stage-grid"><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">6</span><div class="stage-title"><span class="stage-title-en" dir="ltr">Relational Model &amp; SQL</span></div></div>
+<p class="stage-description">بناء فهم عملي للنموذج العلائقي فوق SQL الأساسي: ربط الجداول باستخدام JOINs، والتجميع والاستعلامات الفرعية وCTEs ودوال النافذة، وفهم منطق NULL ثلاثي القيم الذي يفاجئ كثيرًا من المطورين في شروط WHERE. الرياضيات المرتبطة: ٩ و١١ و١٢.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Relational Model</span><span class="topic-ar">النموذج العلائقي</span></li><li class="topic"><span class="topic-en" dir="ltr">SQL Queries &amp; JOINs</span><span class="topic-ar">الاستعلامات والربط</span></li><li class="topic"><span class="topic-en" dir="ltr">Aggregation, CTEs &amp; Window Functions</span><span class="topic-ar">التجميع وCTE ودوال النافذة</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">7</span><div class="stage-title"><span class="stage-title-en" dir="ltr">Schema Design</span></div></div>
+<p class="stage-description">تصميم مخطط متماسك عبر التطبيع، وفرض سلامة البيانات بالمفاتيح والقيود واختيار أنواع PostgreSQL المناسبة (مثل timestamptz وnumeric)، وإدارة تطور المخطط بملفات ترحيل SQL مرقّمة وقابلة للمراجعة. وهذا أول أدوار الترحيلات: تُكتب هنا يدويًا لفهم الفكرة، ثم تؤتمتها Alembic في المرحلة 17، وتُنفَّذ بلا توقف في المرحلة 41. الرياضيات المرتبطة: ١٢.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Normalization</span><span class="topic-ar">التطبيع</span></li><li class="topic"><span class="topic-en" dir="ltr">Constraints, Keys &amp; Data Types</span><span class="topic-ar">القيود والمفاتيح وأنواع البيانات</span></li><li class="topic"><span class="topic-en" dir="ltr">SQL Migrations</span><span class="topic-ar">ترحيلات المخطط</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">8</span><div class="stage-title"><span class="stage-title-en" dir="ltr">Transactions &amp; Python Access</span></div></div>
+<p class="stage-description">تحليل ضمانات ACID وحدود المعاملة الواحدة، ثم الاتصال بـ PostgreSQL من Python عبر psycopg 3، وكتابة استعلامات بمعاملات وسيطة (Parameterized Queries) تمنع SQL Injection، وإدارة المعاملة بـ Context Manager يضمن commit أو rollback، ليصل الـ ORM لاحقًا وأنت تعرف ما يفعله تحته.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Transactions &amp; ACID</span><span class="topic-ar">المعاملات وضمانات ACID</span></li><li class="topic"><span class="topic-en" dir="ltr">psycopg 3 &amp; Parameterized Queries</span><span class="topic-ar">الاتصال من Python والاستعلامات الآمنة</span></li><li class="topic"><span class="topic-en" dir="ltr">Transactions with Context Managers</span><span class="topic-ar">المعاملات عبر Context Managers</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">9</span><div class="stage-title"><span class="stage-title-en" dir="ltr">Concurrency Control</span></div></div>
+<p class="stage-description">منع الحجز المزدوج، وهو أهم قاعدة في نظام الحجوزات: فهم مستويات العزل وMVCC وما تسمح به كل منها، ثم الأقفال على مستوى قاعدة البيانات (SELECT FOR UPDATE وSKIP LOCKED) والقفل المتفائل بعمود version، والتعامل مع Deadlocks وإعادة المحاولة عند serialization failure، وأخيرًا الحل التصريحي بأنواع النطاقات وقيد EXCLUDE الذي يمنع التداخل في قاعدة البيانات نفسها. وهذه أقفال قاعدة البيانات؛ أما أقفال العملية داخل Python فتُدرس في المرحلة 26.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Isolation Levels &amp; MVCC</span><span class="topic-ar">مستويات العزل وMVCC</span></li><li class="topic"><span class="topic-en" dir="ltr">Locking &amp; Retries</span><span class="topic-ar">الأقفال وإعادة المحاولة</span></li><li class="topic"><span class="topic-en" dir="ltr">Range Types &amp; EXCLUDE</span><span class="topic-ar">أنواع النطاقات وقيد EXCLUDE</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">10</span><div class="stage-title"><span class="stage-title-en" dir="ltr">Query Performance</span></div></div>
+<p class="stage-description">تحسين الوصول إلى البيانات باختيار الفهارس المناسبة وقراءة EXPLAIN ANALYZE، مع القياس على بيانات كبيرة مولّدة بـ generate_series وتسجيل الزمن قبل التعديل وبعده، فلا معنى لقياس الأداء على مئة صف. أما N+1 فتُشخَّص في المرحلة 16 حين يوجد ORM يُنتجها، وتُفهم بنية الفهرس الداخلية (أشجار B) في المرحلة 20. الرياضيات المرتبطة: ٢٦.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Indexes</span><span class="topic-ar">الفهارس</span></li><li class="topic"><span class="topic-en" dir="ltr">EXPLAIN &amp; Query Planning</span><span class="topic-ar">خطط التنفيذ</span></li><li class="topic"><span class="topic-en" dir="ltr">Benchmarking at Scale</span><span class="topic-ar">القياس على بيانات كبيرة</span></li></ul>
+</article></div>
+</section>
+<section class="plan-section backend-section">
+<div class="section-heading">
+<div class="section-kicker">BACKEND GROUP 04</div>
+<h2 dir="ltr">Networking, HTTP &amp; REST Design</h2>
+<p class="section-description">فهم رحلة الطلب من العميل إلى الخادم ثم تصميم عقد API واضحة ومتسقة. التطبيق العملي: تتبّع Request باستخدام curl وأدوات المطور، ثم كتابة عقد OpenAPI لواجهة الحجوزات قبل تنفيذها؛ معيار النجاح: يصف العقد كل مسار وحالات الأخطاء ورموز الحالة، ويجتاز أداة تحقق من صحة OpenAPI قبل كتابة أي كود.</p>
+</div>
+<div class="stage-grid"><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">11</span><div class="stage-title"><span class="stage-title-en" dir="ltr">How the Internet Works</span></div></div>
+<p class="stage-description">تتبّع انتقال الطلب عبر الشبكة وفهم دور IP وTCP والمنافذ وDNS، وكيف يتفاعل المتصفح مع الاستضافة والخادم.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">IP, TCP &amp; Ports</span><span class="topic-ar">العناوين والمنافذ</span></li><li class="topic"><span class="topic-en" dir="ltr">DNS &amp; Domain Names</span><span class="topic-ar">نظام أسماء النطاقات</span></li><li class="topic"><span class="topic-en" dir="ltr">Hosting &amp; Browsers</span><span class="topic-ar">الاستضافة والمتصفحات</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">12</span><div class="stage-title"><span class="stage-title-en" dir="ltr">HTTP in Depth</span></div></div>
+<p class="stage-description">فهم دورة طلب واستجابة HTTP، بما يشمل Methods وStatus Codes وHeaders وCookies وCaching، ومقارنة خصائص الإصدارات HTTP/1.1 وHTTP/2 وHTTP/3.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Methods &amp; Status Codes</span><span class="topic-ar">الطرق ورموز الحالة</span></li><li class="topic"><span class="topic-en" dir="ltr">Headers, Cookies &amp; Caching</span><span class="topic-ar">الترويسات والكوكيز</span></li><li class="topic"><span class="topic-en" dir="ltr">HTTP/1.1, 2, 3</span><span class="topic-ar">إصدارات HTTP</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">13</span><div class="stage-title"><span class="stage-title-en" dir="ltr">REST &amp; API Design</span></div></div>
+<p class="stage-description">تصميم API حول الموارد وسلوكها، مع مراعاة Idempotency والترقيم، وتوثيق العقود باستخدام OpenAPI، ووضع سياسة واضحة لإصدارات الواجهة.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Resource Modeling</span><span class="topic-ar">نمذجة الموارد</span></li><li class="topic"><span class="topic-en" dir="ltr">Idempotency &amp; Pagination</span><span class="topic-ar">التكرار الآمن والترقيم</span></li><li class="topic"><span class="topic-en" dir="ltr">OpenAPI &amp; Versioning</span><span class="topic-ar">مواصفة API والإصدارات</span></li></ul>
+</article></div>
+</section>
+<section class="plan-section backend-section">
+<div class="section-heading">
+<div class="section-kicker">BACKEND GROUP 05</div>
+<h2 dir="ltr">FastAPI Core</h2>
+<p class="section-description">بناء API منظم فوق فهم HTTP وSQL، مع البدء بـ def (وفهم أنها تُنفَّذ في threadpool) وتأجيل async def إلى ما بعد دراسة أنظمة التشغيل والتزامن، ثم تُسدَّد بتجربة مقارنة في المرحلة 26 وتُقاس تحت الحمل في المرحلة 42. المتطلبات السابقة: Python (المجموعة 02) وSQL (المجموعة 03) وعقد OpenAPI (المجموعة 04). التطبيق العملي: CRUD API لنظام الحجوزات وفق قواعد ملف المواصفات (حالات الحجز والتوفر ومنع التعارض)؛ معيار النجاح: اختبارات pytest تغطي كل مسار (إنشاء وقراءة وتعديل وإلغاء) وتمر، وطلب حجز متداخل يُرفض برمز 409، ولا تُرجع الاستجابات حقولًا داخلية من نماذج قاعدة البيانات.</p>
+</div>
+<div class="stage-grid"><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">14</span><div class="stage-title"><span class="stage-title-en" dir="ltr">Routing &amp; Validation</span></div></div>
+<p class="stage-description">إنشاء Endpoints منظمة في FastAPI وفهم موقعه فوق Starlette وASGI وتشغيله محليًا عبر Uvicorn، واستقبال Path وQuery Parameters وRequest Body، والتحقق من المدخلات بـ Pydantic v2 مع فصل نماذج الإدخال (Create وUpdate) عن نماذج الإخراج عبر response_model حتى لا تتسرب حقول داخلية، وإرجاع أخطاء متسقة. وتُكتب دوال المسارات بـ def العادية التي ينفذها FastAPI في threadpool منفصل.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Path, Query &amp; Body Params</span><span class="topic-ar">معاملات المسار والاستعلام والجسم</span></li><li class="topic"><span class="topic-en" dir="ltr">Pydantic Models &amp; response_model</span><span class="topic-ar">نماذج البيانات ونماذج الاستجابة</span></li><li class="topic"><span class="topic-en" dir="ltr">Error Handling</span><span class="topic-ar">معالجة الأخطاء</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">15</span><div class="stage-title"><span class="stage-title-en" dir="ltr">Structure &amp; Dependencies</span></div></div>
+<p class="stage-description">تنظيم التطبيق إلى Routers ووحدات واضحة، وإدارة الاعتمادات والإعدادات عبر Dependency Injection، وفصل منطق الأعمال عن التخزين خلف واجهة مستودع تُنفَّذ أولًا في الذاكرة، لتعمل واجهة CRUD كاملة وفق قواعد الحجوزات قبل إدخال قاعدة البيانات.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Dependency Injection &amp; Settings</span><span class="topic-ar">حقن الاعتمادات والإعدادات</span></li><li class="topic"><span class="topic-en" dir="ltr">Routers &amp; Project Layout</span><span class="topic-ar">الموجّهات وبنية المشروع</span></li><li class="topic"><span class="topic-en" dir="ltr">In-Memory Repository</span><span class="topic-ar">مستودع الذاكرة المؤقت</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">16</span><div class="stage-title"><span class="stage-title-en" dir="ltr">ORM &amp; Sessions</span></div></div>
+<p class="stage-description">ربط FastAPI بـ PostgreSQL باستخدام SQLAlchemy بأسلوب 2.0، وفهم دورة حياة الجلسة: أين يحدث commit لكل طلب، وحجم Connection Pool (الافتراضي 5 مع 10 إضافية) مقابل threadpool الخاص بـ FastAPI (الافتراضي 40 خيطًا)، وهو سبب كلاسيكي لتعطل الخدمة تحت الحمل. ثم إنتاج مشكلة N+1 عمدًا عبر علاقات ORM وتشخيصها وإصلاحها بـ selectinload وjoinedload.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">SQLAlchemy 2.0 ORM</span><span class="topic-ar">الربط الكائني العلائقي</span></li><li class="topic"><span class="topic-en" dir="ltr">Sessions, Commit &amp; Connection Pool</span><span class="topic-ar">الجلسات وحدود المعاملة وحوض الاتصالات</span></li><li class="topic"><span class="topic-en" dir="ltr">N+1 Problem &amp; Loading Strategies</span><span class="topic-ar">مشكلة N+1 واستراتيجيات التحميل</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">17</span><div class="stage-title"><span class="stage-title-en" dir="ltr">Persistence &amp; Testing</span></div></div>
+<p class="stage-description">استبدال المستودع المؤقت بتنفيذ SQLAlchemy خلف الواجهة نفسها دون تغيير الـ Endpoints، وإدارة تطور المخطط بترحيلات Alembic بعد أن كُتبت يدويًا في المرحلة 7، ثم تثبيت السلوك باختبارات للـ API باستخدام pytest وTestClient على قاعدة بيانات اختبار، لتكون شبكة أمان قبل إعادة الهيكلة في المجموعة 09.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Alembic Migrations</span><span class="topic-ar">إدارة الترحيلات</span></li><li class="topic"><span class="topic-en" dir="ltr">Repository Pattern</span><span class="topic-ar">نمط المستودع</span></li><li class="topic"><span class="topic-en" dir="ltr">API Tests with pytest &amp; TestClient</span><span class="topic-ar">اختبارات الـ API</span></li></ul>
+</article></div>
+</section>
+<section class="plan-section backend-section">
+<div class="section-heading">
+<div class="section-kicker">BACKEND GROUP 06</div>
+<h2 dir="ltr">Data Structures</h2>
+<p class="section-description">فهم البنى التي تعتمد عليها هياكل Python والفهارس، وربط الاختيار بتكلفة العمليات. التطبيق العملي: بناء LRU Cache وHash Map وHeap من الصفر، ثم وضع LRU Cache أمام endpoint قراءة في خدمة الحجوزات؛ معيار النجاح: اختبارات تثبت سياسة الإخراج، وقياس زمن الاستجابة قبل الـ Cache وبعده.</p>
+</div>
+<div class="stage-grid"><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">18</span><div class="stage-title"><span class="stage-title-en" dir="ltr">Linear Structures</span></div></div>
+<p class="stage-description">فهم آلية عمل المصفوفات الديناميكية والقوائم المترابطة والمكدسات والطوابير، ومقارنة تكلفة عمليات الوصول والإضافة والحذف.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Arrays &amp; Dynamic Arrays</span><span class="topic-ar">المصفوفات</span></li><li class="topic"><span class="topic-en" dir="ltr">Linked Lists</span><span class="topic-ar">القوائم المترابطة</span></li><li class="topic"><span class="topic-en" dir="ltr">Stacks &amp; Queues</span><span class="topic-ar">المكدسات والطوابير</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">19</span><div class="stage-title"><span class="stage-title-en" dir="ltr">Hashing</span></div></div>
+<p class="stage-description">دراسة Hash Tables وآليات توزيع المفاتيح ومعالجة التصادمات وعامل الحمل، وربط ذلك بالسلوك العملي لـ dict وset في Python. الرياضيات المرتبطة: ١٧ و٢٤.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Hash Tables</span><span class="topic-ar">جداول التجزئة</span></li><li class="topic"><span class="topic-en" dir="ltr">Collisions &amp; Load Factor</span><span class="topic-ar">التصادمات وعامل الحمل</span></li><li class="topic"><span class="topic-en" dir="ltr">dict &amp; set Internals</span><span class="topic-ar">البنية الداخلية</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">20</span><div class="stage-title"><span class="stage-title-en" dir="ltr">Trees &amp; Graphs</span></div></div>
+<p class="stage-description">فهم الأشجار الثنائية والمتوازنة والكومات وأشجار B، ثم ربطها بفهارس قواعد البيانات التي استخدمتها في المرحلة 10 وتمثيل العلاقات باستخدام Graphs. الرياضيات المرتبطة: ٢٠.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">BST &amp; Balanced Trees</span><span class="topic-ar">الأشجار المتوازنة</span></li><li class="topic"><span class="topic-en" dir="ltr">Heaps &amp; B-Trees</span><span class="topic-ar">الكومات وأشجار B</span></li><li class="topic"><span class="topic-en" dir="ltr">Graph Representation</span><span class="topic-ar">تمثيل الرسوم</span></li></ul>
+</article></div>
+</section>
+<section class="plan-section backend-section">
+<div class="section-heading">
+<div class="section-kicker">BACKEND GROUP 07</div>
+<h2 dir="ltr">Algorithms</h2>
+<p class="section-description">اختيار الخوارزمية بناءً على التعقيد وقياس الأداء الفعلي. التطبيق العملي: حل ثلاث مسائل على الأقل لكل مرحلة (تسع مسائل) وتسجيل النتائج في جدول: الخوارزمية وحجم المدخلات والزمن المقيس بـ timeit والتعقيد النظري، ثم تنفيذ Interval Scheduling لحساب توفر موارد الحجوزات وكشف التداخل بينها؛ معيار النجاح: تطابق الجدول مع التحليل النظري ضمن هامش القياس، وصحة نتائج الحجوزات على حالات حدية.</p>
+</div>
+<div class="stage-grid"><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">21</span><div class="stage-title"><span class="stage-title-en" dir="ltr">Analysis, Search &amp; Sort</span></div></div>
+<p class="stage-description">تطبيق ما دُرس نظريًا في الرياضيات (٢٢ و٢٣) على كود فعلي: تقدير التعقيد الزمني والمكاني، وتنفيذ Binary Search وخوارزميات الفرز، ثم مقارنة الأداء عمليًا بـ timeit وتنميط الكود بـ cProfile بدل الاعتماد على الانطباع. الرياضيات المرتبطة: ١٦ و٢٢ و٢٣ و٢٧.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Big-O in Practice</span><span class="topic-ar">التعقيد في التطبيق</span></li><li class="topic"><span class="topic-en" dir="ltr">Binary Search</span><span class="topic-ar">البحث الثنائي</span></li><li class="topic"><span class="topic-en" dir="ltr">Sorting</span><span class="topic-ar">خوارزميات الفرز</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">22</span><div class="stage-title"><span class="stage-title-en" dir="ltr">Recursion &amp; Optimization</span></div></div>
+<p class="stage-description">صياغة الحلول العودية ومسائل Backtracking، وتحديد الحالات المناسبة لـ Dynamic Programming أو Greedy مع تحليل كلفة كل نهج. الرياضيات المرتبطة: ١٣ و١٥.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Recursion &amp; Backtracking</span><span class="topic-ar">العودية والتراجع</span></li><li class="topic"><span class="topic-en" dir="ltr">Dynamic Programming</span><span class="topic-ar">البرمجة الديناميكية</span></li><li class="topic"><span class="topic-en" dir="ltr">Greedy</span><span class="topic-ar">الخوارزميات الجشعة</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">23</span><div class="stage-title"><span class="stage-title-en" dir="ltr">Graph Algorithms</span></div></div>
+<p class="stage-description">استخدام BFS وDFS لاستكشاف الرسوم، وتطبيق خوارزميات أقصر المسارات والفرز الطوبولوجي لحل مسائل المسارات والاعتماديات. الرياضيات المرتبطة: ٢١.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">BFS &amp; DFS</span><span class="topic-ar">البحث بالعرض والعمق</span></li><li class="topic"><span class="topic-en" dir="ltr">Shortest Paths</span><span class="topic-ar">أقصر المسارات</span></li><li class="topic"><span class="topic-en" dir="ltr">Topological Sort</span><span class="topic-ar">الفرز الطوبولوجي</span></li></ul>
+</article></div>
+</section>
+<section class="plan-section backend-section">
+<div class="section-heading">
+<div class="section-kicker">BACKEND GROUP 08</div>
+<h2 dir="ltr">Systems, OS &amp; Concurrency</h2>
+<p class="section-description">الانتقال من مفاهيم نظام التشغيل إلى نماذج الإدخال والإخراج والتزامن في Python. التطبيق العملي: بناء TCP Server باستخدام Threads ثم asyncio ومقارنة السلوك، ثم العودة إلى FastAPI بتجربة endpoint يحاكي انتظار I/O بثلاث نسخ: def، وasync def مع asyncio.sleep، وasync def مع time.sleep الحاجب؛ معيار النجاح: جدول بزمن إكمال 50 طلبًا متزامنًا لكل نسخة مع تفسير الفرق بنموذج threadpool وحلقة الأحداث.</p>
+</div>
+<div class="stage-grid"><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">24</span><div class="stage-title"><span class="stage-title-en" dir="ltr">OS Fundamentals</span></div></div>
+<p class="stage-description">فهم دور نظام التشغيل في تشغيل التطبيقات عبر Processes وThreads، وجدولة المعالج واستدعاءات النظام، وإدارة الذاكرة الافتراضية. الرياضيات المرتبطة: ١٨.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Processes &amp; Threads</span><span class="topic-ar">العمليات والخيوط</span></li><li class="topic"><span class="topic-en" dir="ltr">Scheduling &amp; System Calls</span><span class="topic-ar">الجدولة واستدعاءات النظام</span></li><li class="topic"><span class="topic-en" dir="ltr">Virtual Memory</span><span class="topic-ar">الذاكرة الافتراضية</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">25</span><div class="stage-title"><span class="stage-title-en" dir="ltr">I/O Model</span></div></div>
+<p class="stage-description">فهم واصفات الملفات والمقابس، والتمييز بين Blocking وNon-blocking I/O، ودراسة Event Loop وآليات مثل epoll لإدارة الاتصالات. الرياضيات المرتبطة: ١٩.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">File Descriptors &amp; Sockets</span><span class="topic-ar">واصفات الملفات والمقابس</span></li><li class="topic"><span class="topic-en" dir="ltr">Blocking vs Non-blocking I/O</span><span class="topic-ar">الإدخال والإخراج الحاجب وغير الحاجب</span></li><li class="topic"><span class="topic-en" dir="ltr">Event Loop &amp; epoll</span><span class="topic-ar">حلقة الأحداث</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">26</span><div class="stage-title"><span class="stage-title-en" dir="ltr">Python Concurrency</span></div></div>
+<p class="stage-description">اختيار نموذج التزامن المناسب في Python، وفهم أثر GIL واستخدام Threads وasyncio، ومعالجة Race Conditions وDeadlocks على مستوى العملية بأقفال threading وasyncio (أما أقفال قاعدة البيانات فدُرست في المرحلة 9).</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">GIL &amp; Threads</span><span class="topic-ar">القفل العام والخيوط</span></li><li class="topic"><span class="topic-en" dir="ltr">asyncio</span><span class="topic-ar">البرمجة غير المتزامنة</span></li><li class="topic"><span class="topic-en" dir="ltr">Race Conditions &amp; Deadlocks</span><span class="topic-ar">التسابق والجمود</span></li></ul>
+</article></div>
+</section>
+<section class="plan-section backend-section">
+<div class="section-heading">
+<div class="section-kicker">BACKEND GROUP 09</div>
+<h2 dir="ltr">Software Design, Testing &amp; Quality</h2>
+<p class="section-description">تحويل الكود إلى تصميم قابل للفهم والتغيير والاختبار، مع معايير واضحة للجودة. التطبيق العملي: إعادة هيكلة مشروع FastAPI إلى طبقات (Routers وServices وRepositories) مع بقاء اختبارات المرحلة 17 خضراء قبل الهيكلة وبعدها، ثم إضافة اختبارات وحدة لمنطق الحجوزات بعزل الاعتمادات؛ معيار النجاح: لا يتغير سلوك الـ API، وتقرير التغطية (coverage) لا يقل عن 80% لمنطق الأعمال، ويمر فحص Linting وmypy بلا أخطاء.</p>
+</div>
+<div class="stage-grid"><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">27</span><div class="stage-title"><span class="stage-title-en" dir="ltr">Design Principles</span></div></div>
+<p class="stage-description">تطبيق SOLID ومبادئ Clean Architecture وأنماط GoF عند الحاجة، بهدف فصل المسؤوليات وتقليل الترابط وتسهيل التطوير والاختبار.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">SOLID</span><span class="topic-ar">مبادئ التصميم الخمسة</span></li><li class="topic"><span class="topic-en" dir="ltr">Clean Architecture</span><span class="topic-ar">العمارة النظيفة</span></li><li class="topic"><span class="topic-en" dir="ltr">GoF Patterns</span><span class="topic-ar">أنماط التصميم</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">28</span><div class="stage-title"><span class="stage-title-en" dir="ltr">Testing</span></div></div>
+<p class="stage-description">بناء اختبارات وحدة وتكامل واختبارات وظيفية باستخدام pytest، وتطبيق TDD وMocking للتحقق من السلوك وعزل الاعتمادات.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Unit Testing &amp; pytest</span><span class="topic-ar">اختبار الوحدة</span></li><li class="topic"><span class="topic-en" dir="ltr">Integration &amp; Functional Tests</span><span class="topic-ar">اختبارات التكامل والوظائف</span></li><li class="topic"><span class="topic-en" dir="ltr">TDD &amp; Mocking</span><span class="topic-ar">التطوير بالاختبار والمحاكاة</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">29</span><div class="stage-title"><span class="stage-title-en" dir="ltr">Code Quality</span></div></div>
+<p class="stage-description">رفع اتساق الكود بفرض Linting وType Checking تلقائيًا في CI وpre-commit كبوابة إلزامية (بعد أن دُرس mypy أداةً محلية في المرحلة 4)، وإعادة الهيكلة دون تغيير السلوك المقصود بحماية الاختبارات، والاستفادة من Code Review.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Linting &amp; Type Checking</span><span class="topic-ar">الفحص الساكن</span></li><li class="topic"><span class="topic-en" dir="ltr">Refactoring</span><span class="topic-ar">إعادة الهيكلة</span></li><li class="topic"><span class="topic-en" dir="ltr">Code Review</span><span class="topic-ar">مراجعة الكود</span></li></ul>
+</article></div>
+</section>
+<section class="plan-section backend-section">
+<div class="section-heading">
+<div class="section-kicker">BACKEND GROUP 10</div>
+<h2 dir="ltr">Application Security</h2>
+<p class="section-description">دمج الحماية في تصميم الخدمة بدل التعامل معها كإضافة لاحقة. التطبيق العملي: تطبيق JWT وRBAC وRate Limiting داخل API الحجوزات؛ معيار النجاح: اختبار يثبت أن مستخدمًا لا يستطيع قراءة حجز غيره أو إلغاءه (BOLA)، وأن الدور العادي لا يصل إلى مسارات الإدارة، وأن تجاوز الحصة يُرجع الرمز 429.</p>
+</div>
+<div class="stage-grid"><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">30</span><div class="stage-title"><span class="stage-title-en" dir="ltr">Web Security Basics</span></div></div>
+<p class="stage-description">تأمين الاتصال وفهم HTTPS وTLS، والتعرف على المخاطر الشائعة وفق OWASP Top 10 للويب وقائمة OWASP API Security Top 10 المستقلة لواجهات API وأولها BOLA (قراءة مستخدم حجز غيره)، وضبط سياسات CORS وCSP بما يناسب التطبيق.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">HTTPS &amp; TLS</span><span class="topic-ar">النقل الآمن</span></li><li class="topic"><span class="topic-en" dir="ltr">OWASP Web &amp; API Top 10</span><span class="topic-ar">أخطر الثغرات للويب ولواجهات API</span></li><li class="topic"><span class="topic-en" dir="ltr">CORS &amp; CSP</span><span class="topic-ar">سياسات المصدر والمحتوى</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">31</span><div class="stage-title"><span class="stage-title-en" dir="ltr">AuthN &amp; AuthZ</span></div></div>
+<p class="stage-description">التمييز بين إثبات الهوية وتحديد الصلاحيات، وتنفيذ الجلسات والرموز وJWT، وفهم أدوار OAuth2 وOpenID Connect.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Sessions, Cookies &amp; Tokens</span><span class="topic-ar">الجلسات والرموز</span></li><li class="topic"><span class="topic-en" dir="ltr">JWT</span><span class="topic-ar">رموز الويب JSON</span></li><li class="topic"><span class="topic-en" dir="ltr">OAuth2 &amp; OpenID Connect</span><span class="topic-ar">التفويض والهوية الموحدة</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">32</span><div class="stage-title"><span class="stage-title-en" dir="ltr">Hardening</span></div></div>
+<p class="stage-description">تقوية التطبيق بتخزين كلمات المرور باستخدام Argon2 أو bcrypt، ومعالجة مخاطر Injection وXSS وCSRF، وتطبيق Rate Limiting لحماية الواجهة من عميل مسيء (حصة لكل مستخدم أو IP مع رمز 429)، وإدارة الأسرار بأمان؛ أما حماية النظام نفسه من الحمل الكلي فمكانها Throttling في المرحلة 38.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Password Hashing, Argon2 &amp; bcrypt</span><span class="topic-ar">تجزئة كلمات المرور</span></li><li class="topic"><span class="topic-en" dir="ltr">Injection, XSS &amp; CSRF</span><span class="topic-ar">هجمات الحقن والتزوير</span></li><li class="topic"><span class="topic-en" dir="ltr">Rate Limiting &amp; Secrets</span><span class="topic-ar">تحديد المعدل وإدارة الأسرار</span></li></ul>
+</article></div>
+</section>
+<section class="plan-section backend-section">
+<div class="section-heading">
+<div class="section-kicker">BACKEND GROUP 11</div>
+<h2 dir="ltr">Caching, Messaging &amp; Real-Time</h2>
+<p class="section-description">تحسين الاستجابة وفصل المهام الخلفية وإضافة قنوات اتصال لحظية عند الحاجة. التطبيق العملي: إضافة Redis Cache لقراءة التوفر وQueue لمهمة خلفية محددة هي إلغاء الحجوزات المعلّقة غير المدفوعة بعد مهلة؛ معيار النجاح: تُلغى الحجوزات المنتهية مهلتها تلقائيًا دون تكرار حتى لو أُعيد تنفيذ المهمة، ويُبطَل الـ Cache عند أي تغيير في الحجز.</p>
+</div>
+<div class="stage-grid"><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">33</span><div class="stage-title"><span class="stage-title-en" dir="ltr">Caching</span></div></div>
+<p class="stage-description">تقليل زمن الاستجابة والحمل على قواعد البيانات عبر طبقات Cache وRedis، مع اختيار سياسة واضحة للتحديث والإبطال وتجنب البيانات القديمة.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Caching Layers</span><span class="topic-ar">طبقات التخزين المؤقت</span></li><li class="topic"><span class="topic-en" dir="ltr">Redis</span><span class="topic-ar">التخزين في الذاكرة</span></li><li class="topic"><span class="topic-en" dir="ltr">Cache Invalidation</span><span class="topic-ar">إبطال الكاش</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">34</span><div class="stage-title"><span class="stage-title-en" dir="ltr">Messaging &amp; Jobs</span></div></div>
+<p class="stage-description">نقل الأعمال غير الفورية خارج مسار الطلب باستخدام Message Brokers والمهام الخلفية، وفهم ضمانات التسليم والتعامل مع إعادة المحاولة، ونشر الرسالة بعد commit بأمان عبر نمط Outbox حتى لا تضيع أو تُرسل لمعاملة فشلت، وجعل المستهلكين Idempotent لتحمّل إعادة التسليم.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Message Brokers, RabbitMQ &amp; Kafka</span><span class="topic-ar">وسطاء الرسائل</span></li><li class="topic"><span class="topic-en" dir="ltr">Delivery Guarantees &amp; Outbox</span><span class="topic-ar">ضمانات التسليم ونمط Outbox</span></li><li class="topic"><span class="topic-en" dir="ltr">Background Jobs</span><span class="topic-ar">المهام الخلفية</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">35</span><div class="stage-title"><span class="stage-title-en" dir="ltr">Real-Time &amp; Alternatives</span></div></div>
+<p class="stage-description">اختيار آلية الاتصال المناسبة بين WebSockets وSSE وPolling، وإرسال الأحداث إلى خدمات خارجية عبر Webhooks مع توقيعها والتحقق منها وإعادة المحاولة عند فشل التسليم، والتعرف على GraphQL وgRPC ومتى تكون بدائل REST مبررة.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">WebSockets &amp; SSE</span><span class="topic-ar">الاتصال اللحظي</span></li><li class="topic"><span class="topic-en" dir="ltr">Polling &amp; Webhooks</span><span class="topic-ar">الاستقصاء وخطافات الويب</span></li><li class="topic"><span class="topic-en" dir="ltr">GraphQL &amp; gRPC</span><span class="topic-ar">بدائل REST</span></li></ul>
+</article></div>
+</section>
+<section class="plan-section backend-section">
+<div class="section-heading">
+<div class="section-kicker">BACKEND GROUP 12</div>
+<h2 dir="ltr">Architecture &amp; Scalability</h2>
+<p class="section-description">تقييم الخيارات المعمارية وفق متطلبات النظام ومقايضات الأداء والاتساق والتشغيل. التطبيق العملي: توثيق قرار توسع واحد باستخدام ADR؛ معيار النجاح: يذكر الـ ADR السياق والبدائل والمقايضات والقرار وشروط مراجعته.</p>
+</div>
+<div class="stage-grid"><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">36</span><div class="stage-title"><span class="stage-title-en" dir="ltr">Architectural Patterns</span></div></div>
+<p class="stage-description">مقارنة Monolith وMicroservices وSOA وServerless وفق متطلبات النظام وكلفة التشغيل، وتطبيق مبادئ Twelve-Factor App.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Monolith vs Microservices</span><span class="topic-ar">الأحادي مقابل الخدمات المصغرة</span></li><li class="topic"><span class="topic-en" dir="ltr">Serverless &amp; SOA</span><span class="topic-ar">بلا خوادم ومعمارية الخدمات</span></li><li class="topic"><span class="topic-en" dir="ltr">Twelve-Factor App</span><span class="topic-ar">تطبيق العوامل الاثني عشر</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">37</span><div class="stage-title"><span class="stage-title-en" dir="ltr">Distributed Data</span></div></div>
+<p class="stage-description">فهم آثار Replication وSharding على توزيع البيانات واتساقها وتوافرها، واستخدام نظرية CAP لتفسير المقايضات في الأنظمة الموزعة. الرياضيات المرتبطة: ١٧.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Replication</span><span class="topic-ar">النسخ المتماثل</span></li><li class="topic"><span class="topic-en" dir="ltr">Sharding</span><span class="topic-ar">تجزئة البيانات أفقيًا</span></li><li class="topic"><span class="topic-en" dir="ltr">CAP Theorem</span><span class="topic-ar">نظرية CAP</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">38</span><div class="stage-title"><span class="stage-title-en" dir="ltr">Resilience &amp; Scale</span></div></div>
+<p class="stage-description">تصميم خدمة تتعامل مع الضغط والأعطال عبر التوسع الرأسي والأفقي، وThrottling وBackpressure لحماية النظام نفسه من الحمل الكلي (بخلاف Rate Limiting الذي يحمي من عميل مسيء في المرحلة 32)، ثم ضبط Timeouts وإعادة المحاولة بـ Backoff وJitter عند استدعاء خدمات خارجية، وCircuit Breaker الذي يقوم على تلك الأسس، والتدهور المنضبط. الرياضيات المرتبطة: ٢٨.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Vertical vs Horizontal Scaling</span><span class="topic-ar">التوسع الرأسي والأفقي</span></li><li class="topic"><span class="topic-en" dir="ltr">Throttling &amp; Backpressure</span><span class="topic-ar">الخنق والضغط الراجع</span></li><li class="topic"><span class="topic-en" dir="ltr">Timeouts, Backoff &amp; Circuit Breaker</span><span class="topic-ar">المهلات وإعادة المحاولة وقاطع الدائرة</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">39</span><div class="stage-title"><span class="stage-title-en" dir="ltr">Advanced Patterns</span></div></div>
+<p class="stage-description">التعرف على DDD لنمذجة نطاق الأعمال، وCQRS لفصل مسارات القراءة والكتابة، وEvent Sourcing للاحتفاظ بتسلسل تغييرات الحالة.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">DDD</span><span class="topic-ar">التصميم الموجه بالنطاق</span></li><li class="topic"><span class="topic-en" dir="ltr">CQRS</span><span class="topic-ar">فصل القراءة عن الكتابة</span></li><li class="topic"><span class="topic-en" dir="ltr">Event Sourcing</span><span class="topic-ar">تخزين الأحداث</span></li></ul>
+</article></div>
+</section>
+<section class="plan-section backend-section">
+<div class="section-heading">
+<div class="section-kicker">BACKEND GROUP 13</div>
+<h2 dir="ltr">FastAPI Production Services</h2>
+<p class="section-description">تجهيز الخدمة للتشغيل الفعلي والنشر والمراقبة والقياس. المشروع الختامي: خدمة حجوزات متكاملة باستخدام PostgreSQL وRedis وDocker وCI/CD وفق ملف المواصفات؛ وقائمة الجاهزية للإنتاج بأرقام: p95 أقل من 300 ms عند 100 طلب في الثانية، ومعدل أخطاء أقل من 1%، وCI أخضر على كل دمج، وRunbook لأهم الأعطال، وتحمّل 50 محاولة حجز متزامنة لنفس الفترة بنجاح واحدة فقط.</p>
+</div>
+<div class="stage-grid"><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">40</span><div class="stage-title"><span class="stage-title-en" dir="ltr">Containers</span></div></div>
+<p class="stage-description">تغليف التطبيق واعتماداته في Docker، وتشغيل الخدمات المترابطة عبر Compose، وفهم الفروق التشغيلية بين Containers وVirtual Machines.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Docker &amp; Dockerfile</span><span class="topic-ar">الحاويات</span></li><li class="topic"><span class="topic-en" dir="ltr">Docker Compose</span><span class="topic-ar">تعدد الحاويات</span></li><li class="topic"><span class="topic-en" dir="ltr">Containers vs VMs</span><span class="topic-ar">الحاويات مقابل الأجهزة الافتراضية</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">41</span><div class="stage-title"><span class="stage-title-en" dir="ltr">CI/CD &amp; Deployment</span></div></div>
+<p class="stage-description">أتمتة الفحص والاختبار والنشر عبر CI/CD، وتشغيل الخدمة باستخدام Uvicorn أو Gunicorn خلف Nginx، وإدارة ترحيلات آمنة تقلل التوقف، وهي الدور الثالث للترحيلات بعد كتابتها يدويًا في المرحلة 7 وأتمتتها بـ Alembic في المرحلة 17.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">CI/CD Pipelines</span><span class="topic-ar">خطوط التكامل والنشر المستمر</span></li><li class="topic"><span class="topic-en" dir="ltr">Uvicorn, Gunicorn &amp; Nginx</span><span class="topic-ar">خوادم الويب والوكيل العكسي</span></li><li class="topic"><span class="topic-en" dir="ltr">Zero-Downtime Migrations</span><span class="topic-ar">ترحيلات بلا توقف</span></li></ul>
+</article><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">42</span><div class="stage-title"><span class="stage-title-en" dir="ltr">Observability</span></div></div>
+<p class="stage-description">قياس صحة الخدمة في الإنتاج من خلال Logs وMetrics وTracing، وتحديد أهداف رقمية (SLO) مثل p95 وp99 ومعدل الأخطاء، وربطها باختبارات الحمل لتحديد حدود الأداء ومصادر الاختناق، ومنها إعادة تجربة def مقابل async def (من المرحلة 26) تحت حمل مستمر وقياس الفرق بالأرقام. الرياضيات المرتبطة: ٢٥ و٢٦ و٢٧ و٢٨.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">Logging &amp; Metrics</span><span class="topic-ar">السجلات والمقاييس</span></li><li class="topic"><span class="topic-en" dir="ltr">Tracing &amp; Telemetry</span><span class="topic-ar">التتبع والقياس عن بُعد</span></li><li class="topic"><span class="topic-en" dir="ltr">Load Testing</span><span class="topic-ar">اختبار الحمل</span></li></ul>
+</article></div>
+</section>
+<section class="plan-section backend-section optional">
+<div class="section-heading">
+<div class="section-kicker">BACKEND GROUP 14</div>
+<h2 dir="ltr">Optional Extensions</h2>
+<p class="section-description">مسارات توسع اختيارية تُدرس بعد اكتمال الأساس، وتُختار وفق طبيعة المشروع واحتياجاته بدل إضافتها دون مبرر. التطبيق العملي: اختيار تقنية واحدة تبرّر حاجة خدمة الحجوزات إليها (مثل بحث نصي) وبناء نموذج أولي (PoC) يقارنها بالحل الحالي؛ معيار النجاح: مقارنة مقيسة بالأرقام وقرار موثق بإضافتها أو رفضها.</p>
+</div>
+<div class="stage-grid"><article class="stage-card">
+<div class="stage-heading"><span class="stage-number">43</span><div class="stage-title"><span class="stage-title-en" dir="ltr">Beyond the Core</span></div></div>
+<p class="stage-description">استكشاف تقنيات تُختار وفق احتياج المشروع بعد إتقان الأساس، مثل NoSQL ومحركات البحث وKubernetes وService Mesh وInfrastructure as Code.</p>
+<ul class="topics"><li class="topic"><span class="topic-en" dir="ltr">NoSQL &amp; Search</span><span class="topic-ar">مخازن NoSQL ومحركات البحث</span></li><li class="topic"><span class="topic-en" dir="ltr">Kubernetes &amp; Service Mesh</span><span class="topic-ar">تنسيق الحاويات وشبكة الخدمات</span></li><li class="topic"><span class="topic-en" dir="ltr">Infrastructure as Code</span><span class="topic-ar">البنية ككود</span></li></ul>
+</article></div>
+</section>
+<footer>Software Engineering Mindset · من الأساس النظري إلى بناء خدمة قابلة للتشغيل في الإنتاج</footer>
+</main>
+</body>
+</html>

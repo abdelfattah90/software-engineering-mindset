@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prompts — [اسم المرحلة]</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../assets/style.css" />
+  </head>
+
+  <body>
+    <!-- ==========================================================
+       صفحة prompts مرحلة = هذا الهيكل الثابت كما هو + كتلة JSON واحدة (#stage-data).
+       لا تغيّر شيئًا خارج كتلة الـ JSON: العنوان والروابط والقائمة وأزرار النسخ
+       وشريط التقدّم وفحص البيانات يبنيها ../assets/prompts-common.js، والـ master prompt
+       وقواعد المسارات وقاعدة «Continue» كلها هناك أيضًا (لا تكتبها هنا).
+
+       حقول المرحلة:
+         id     "p01" (حروف صغيرة)        n    رقم المرحلة (1–14)
+         title  اسمها العربي              en   اسمها الإنجليزي
+         dir    اسم مجلد المرحلة مثل "01-mathematical-foundations"
+         track  مسار المرحلة الافتراضي، أو مصفوفة مسارات: math | python | sql | shell |
+                web | backend | design | project
+         reader (اختياري) فقرة «القارئ» إن اختلفت عن الافتراضي لهذه المرحلة
+         env    (اختياري) نص يُضاف إلى مسار كل جزء: قيود خاصة بالمرحلة (مثل «لا كود في
+                هذه المرحلة، وتمارين الكود تُؤجَّل إلى P02»)
+         blocks (اختياري) كتل نصية مسمّاة (عقد مجال، بيانات، مواصفة) تُضاف إلى أجزاء بعينها
+                عبر الحقل use؛ وما يلزم مراحل أخرى يُنسخ أيضًا إلى assets/plan-digest.js
+         diagrams (اختياري) مخططات ASCII قياسية مسمّاة، تُستعمل عبر الحقل dg
+         layers مصفوفة طبقات: { n, title, parts: [...] }
+       حقول الجزء (صفحة واحدة = محادثة واحدة):
+         c      رقمه في صفحة المرحلة: "1.1"، وللمقسَّم "1.2a" و"1.2b"
+         t      عنوانه بالصيغة «عربي (English)» (والمقسَّم: «… - الجزء الأول (… - Part 1)»)
+         f      اسم ملف الصفحة بترقيم متصل داخل المرحلة: "02-functions-part-1.html"
+         k      الموضوعات بصيغة «عربي - English» بالترتيب؛ والبادئة ~ تعني موضوعًا داعمًا
+                (مسار مخفّف). الحد الأقصى 6 موضوعات للجزء
+         n      (اختياري) ملاحظات خاصة بالجزء (من ملاحظات الـ md ومن قرارات الشرح)
+         x      المصطلحات التي يعرّفها هذا الجزء رسميًا
+         u      (اختياري) مفاهيم يستعملها من أجزاء سابقة (يجب أن تكون ضمن x سابقة)
+         b      (اختياري) تمهيد للجزء التالي بجملة قصيرة
+         o      (اختياري) 1 للجزء الاختياري
+         track  (اختياري) مسار هذا الجزء إن اختلف عن مسار المرحلة
+         use    (اختياري) مفاتيح كتل من blocks تُضاف إلى prompt هذا الجزء
+         dg     (اختياري) مفاتيح مخططات من diagrams
+       الـ JSON صارم: علامات اقتباس مزدوجة فقط، وفاصلة بين العناصر لا بعد الأخير،
+       وسطر جديد داخل نص يُكتب \n، وعلامة " داخل نص تُكتب \".
+    =========================================================== -->
+
+    <div class="topbar">
+      <div class="container topbar__inner">
+        <a class="topbar__back" href="#"><span>المرحلة</span></a>
+        <span class="topbar__title" data-sync-title></span>
+      </div>
+    </div>
+
+    <main>
+      <header class="hero">
+        <div class="container">
+          <div class="hero__eyebrow"></div>
+          <h1 class="hero__title"></h1>
+          <p class="hero__lead"></p>
+        </div>
+      </header>
+
+      <section class="content-section" id="prompts">
+        <div class="container">
+          <div class="progress-card">
+            <span class="progress-card__text" id="progress-text"></span>
+            <div class="progress-bar"><span class="progress-bar__fill" id="progress-fill"></span></div>
+          </div>
+          <div id="lint"></div>
+          <div id="groups"></div>
+        </div>
+      </section>
+    </main>
+
+    <script type="application/json" id="stage-data">
+{
+  "id": "p01",
+  "n": 1,
+  "title": "التأسيس الرياضي",
+  "en": "Mathematical Foundations",
+  "dir": "01-mathematical-foundations",
+  "track": "math",
+  "env": "لا كود في هذه المرحلة: تمارين الكود تُؤجَّل إلى P02، والأمثلة أعداد وجداول وخطوات محلولة.",
+  "layers": [
+    {
+      "n": 1,
+      "title": "الأساس الرياضي (Basic Mathematics)",
+      "parts": [
+        {
+          "c": "1.1",
+          "t": "الحساب والجبر الأساسي (Arithmetic and Basic Algebra)",
+          "f": "01-arithmetic-basic-algebra.html",
+          "k": [
+            "العمليات الحسابية، خصائصها - Arithmetic Operations, Properties",
+            "الكسور، الأعداد العشرية - Fractions, Decimals",
+            "~القيمة المطلقة - Absolute Value"
+          ],
+          "x": ["Fraction", "Absolute Value"],
+          "b": "الدوال تعمّم فكرة «قاعدة تربط مدخلًا بمخرج»."
+        },
+        {
+          "c": "1.2a",
+          "t": "الدوال - الجزء الأول (Functions - Part 1)",
+          "f": "02-functions-part-1.html",
+          "k": [
+            "مفهوم الدالة، المدخلات، المخرجات - Function Concept, Inputs, Outputs",
+            "المجال، المدى - Domain, Range"
+          ],
+          "n": "اشرح الدالة بوصفها عقدًا بين المدخل والمخرج.",
+          "x": ["Function", "Domain", "Range"],
+          "u": ["Fraction"]
+        }
+      ]
+    },
+    {
+      "n": 4,
+      "title": "الرياضيات الاختيارية (Optional Mathematics)",
+      "parts": [
+        {
+          "c": "4.1",
+          "t": "الجبر الخطي (Linear Algebra)",
+          "f": "18-linear-algebra.html",
+          "o": 1,
+          "k": ["المتجهات - Vectors", "المصفوفات - Matrices"],
+          "x": ["Vector", "Matrix"]
+        }
+      ]
+    }
+  ]
+}
+    </script>
+    <script src="../assets/plan-digest.js"></script>
+    <script src="../assets/prompts-common.js"></script>
+    <script src="../assets/stage.js"></script>
+  </body>
+</html>

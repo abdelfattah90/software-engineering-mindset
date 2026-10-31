@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="#fcfcfc" name="theme-color"/>
+<title>Booking Service Spec</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    color-scheme: light;
+    --page: #fcfcfc;
+    --surface: #ffffff;
+    --text: #576db5;
+    --muted: #b378a6;
+    --accent: #b378a6;
+    --line: #e3e6f2;
+    --code-bg: #f4f5fa;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; background: var(--page); }
+  body {
+    margin: 0;
+    color: var(--text);
+    background: var(--page);
+    font-family: "Baloo Bhaijaan 2", "Segoe UI", Tahoma, system-ui, sans-serif;
+    font-size: 19px;
+    line-height: 1.85;
+    direction: rtl;
+  }
+  .page { width: min(100% - 40px, 980px); margin: 0 auto; padding: 32px 0 72px; }
+
+  .hero {
+    padding: clamp(24px, 4vw, 38px);
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    background: var(--surface);
+  }
+  .eyebrow { display: block; margin: 0 0 12px; color: var(--accent); font-size: 1rem; font-weight: 700; text-align: right; }
+  h1 {
+    margin: 0 0 18px;
+    color: var(--text);
+    font-size: clamp(2.1rem, 5vw, 3rem);
+    line-height: 1.3;
+    direction: ltr;
+    text-align: left;
+    letter-spacing: -.025em;
+  }
+  .intro p { margin: 0 0 12px; color: var(--muted); font-size: 1.06rem; line-height: 1.85; }
+  .intro p:last-child { margin-bottom: 0; }
+
+  .spec-section {
+    margin-top: 30px;
+    padding: 22px 26px 24px;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: var(--surface);
+  }
+  h2 {
+    margin: 0 0 14px;
+    padding: 0 16px 0 0;
+    border-right: 4px solid var(--text);
+    color: var(--text);
+    font-size: clamp(1.45rem, 3vw, 1.8rem);
+    line-height: 1.5;
+  }
+  h3 { margin: 22px 0 8px; color: var(--accent); font-size: 1.2rem; line-height: 1.5; }
+  p { margin: 0 0 12px; color: var(--muted); }
+  strong { color: var(--text); font-weight: 700; }
+  ul { margin: 0 0 12px; padding: 0 22px 0 0; color: var(--muted); }
+  li { margin-bottom: 4px; }
+  li.todo { list-style: none; margin-right: -4px; }
+  li.todo::before { content: "\2610"; display: inline-block; margin-left: 10px; color: var(--text); }
+
+  code {
+    direction: ltr;
+    unicode-bidi: isolate;
+    padding: 1px 6px;
+    border-radius: 6px;
+    background: var(--code-bg);
+    color: var(--text);
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    font-size: .88em;
+  }
+  pre {
+    direction: ltr;
+    text-align: left;
+    margin: 0 0 14px;
+    padding: 14px 18px;
+    border-radius: 12px;
+    background: var(--code-bg);
+    overflow-x: auto;
+    line-height: 1.55;
+  }
+  pre code { padding: 0; background: none; font-size: .86rem; white-space: pre; }
+
+  .table-wrap { overflow-x: auto; margin: 0 0 16px; }
+  table { width: 100%; border-collapse: collapse; font-size: .96rem; line-height: 1.6; }
+  th, td { padding: 8px 12px; border: 1px solid var(--line); text-align: right; vertical-align: top; }
+  th { background: var(--code-bg); color: var(--text); font-weight: 700; }
+  td { color: var(--muted); }
+  td:first-child { color: var(--text); font-weight: 600; }
+
+  @media (max-width: 640px) {
+    body { font-size: 18px; }
+    .page { width: min(100% - 24px, 980px); padding: 16px 0 42px; }
+    .hero { padding: 20px 17px 22px; }
+    .spec-section { padding: 16px 14px 18px; margin-top: 20px; }
+    th, td { padding: 6px 8px; }
+  }
+  @media print {
+    body { background: #fff; font-size: 15px; }
+    .page { width: 100%; padding: 0; }
+    .spec-section { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<main class="page">
+<header class="hero">
+<div class="eyebrow">مرجع مشروع الحجوزات</div>
+<h1>Booking Service Spec</h1>
+<div class="intro">
+<p>المرجع الوحيد لمشروع خدمة الحجوزات في خطة Software Engineering Mindset. تُحيل إليه المجموعات 02 و03 و04 و05 و09 و13 وغيرها (الجدول في القسم 6).</p>
+<p>القاعدة العامة: إذا تعارض شرح من الإنترنت مع هذا الملف، فالملف هو الصحيح. وإذا قررتَ تغيير بند، فعدّله هنا مع سبب التغيير قبل أن تغيّره في الكود.</p>
+</div>
+</header>
+<section class="spec-section">
+<h2>1. القرارات التقنية الثابتة</h2>
+<p>الإصدارات تم التحقق منها بتاريخ 31 أكتوبر 2026. ثبّتها في <code>pyproject.toml</code> وملف القفل.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>البند</th>
+<th>القرار</th>
+<th>السبب</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Python</td>
+<td>3.14</td>
+<td>إصدار مستقر مدعوم حتى أكتوبر 2030. 3.15 مجدول للصدور في أكتوبر 2026، فلا تبدأ به قبل أن تدعمه مكتباتك.</td>
+</tr>
+<tr>
+<td>PostgreSQL</td>
+<td>18 (<code>postgres:18</code> في Docker)</td>
+<td>أحدث إصدار رئيسي، ومدعوم حتى نوفمبر 2030. 17 بديل مقبول.</td>
+</tr>
+<tr>
+<td>Driver</td>
+<td>psycopg 3 (سلسلة 3.3)</td>
+<td>ليس psycopg2.</td>
+</tr>
+<tr>
+<td>ORM</td>
+<td>SQLAlchemy 2.0.x بأسلوب 2.0</td>
+<td><code>select()</code> و<code>Mapped[...]</code> و<code>mapped_column</code> و<code>Session.execute</code>. إصدار 2.1 ما زال beta، فلا يُستخدم.</td>
+</tr>
+<tr>
+<td>Validation</td>
+<td>Pydantic v2</td>
+<td>ممنوع <code>pydantic.v1</code>. FastAPI نفسه أعلن إيقاف دعم v1، وPydantic لا تدعمه على Python 3.14.</td>
+</tr>
+<tr>
+<td>Web</td>
+<td>FastAPI (أحدث مستقر عند البدء) + Uvicorn</td>
+<td>يُثبَّت الرقم الفعلي في ملف القفل.</td>
+</tr>
+<tr>
+<td>Migrations</td>
+<td>Alembic</td>
+<td>بعد كتابة الترحيلات يدويًا في المرحلة 7.</td>
+</tr>
+<tr>
+<td>الاختبار</td>
+<td>pytest</td>
+<td></td>
+</tr>
+<tr>
+<td>الفحص</td>
+<td>mypy + Ruff</td>
+<td>يُفرضان في CI في المرحلة 29.</td>
+</tr>
+</tbody>
+</table></div>
+<h3>علامات الشروحات القديمة (تجاهل أي شرح يستخدمها)</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>الشرح القديم</th>
+<th>البديل الحالي</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pydantic: <code>@validator</code> و<code>class Config: orm_mode = True</code> و<code>.dict()</code> و<code>parse_obj</code></td>
+<td><code>@field_validator</code> و<code>model_config = ConfigDict(from_attributes=True)</code> و<code>.model_dump()</code> و<code>model_validate</code></td>
+</tr>
+<tr>
+<td>SQLAlchemy: <code>session.query(Model).filter(...)</code> و<code>Column(Integer)</code> و<code>declarative_base()</code></td>
+<td><code>select(Model).where(...)</code> مع <code>session.execute</code> و<code>Mapped[int] = mapped_column()</code> و<code>DeclarativeBase</code></td>
+</tr>
+<tr>
+<td>FastAPI: <code>@app.on_event("startup")</code></td>
+<td><code>lifespan</code></td>
+</tr>
+</tbody>
+</table></div>
+
+</section>
+<section class="spec-section">
+<h2>2. الكيانات</h2>
+<h3>User</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>الحقل</th>
+<th>النوع</th>
+<th>ملاحظات</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>UUID</td>
+<td>PK</td>
+</tr>
+<tr>
+<td>email</td>
+<td>text</td>
+<td>unique، يُخزَّن بحروف صغيرة</td>
+</tr>
+<tr>
+<td>password_hash</td>
+<td>text</td>
+<td>يُضاف في المجموعة 10</td>
+</tr>
+<tr>
+<td>role</td>
+<td>enum</td>
+<td><code>customer</code> أو <code>admin</code></td>
+</tr>
+<tr>
+<td>created_at</td>
+<td>timestamptz</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<h3>Resource (غرفة أو قاعة أو ملعب)</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>الحقل</th>
+<th>النوع</th>
+<th>ملاحظات</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>UUID</td>
+<td>PK</td>
+</tr>
+<tr>
+<td>name</td>
+<td>text</td>
+<td>unique</td>
+</tr>
+<tr>
+<td>capacity</td>
+<td>int</td>
+<td>أكبر من صفر</td>
+</tr>
+<tr>
+<td>price_per_hour</td>
+<td>numeric(10,2)</td>
+<td></td>
+</tr>
+<tr>
+<td>timezone</td>
+<td>text</td>
+<td>اسم IANA مثل <code>Africa/Cairo</code></td>
+</tr>
+<tr>
+<td>active</td>
+<td>boolean</td>
+<td>المورد غير النشط لا يقبل حجوزات جديدة</td>
+</tr>
+</tbody>
+</table></div>
+<h3>Booking</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>الحقل</th>
+<th>النوع</th>
+<th>ملاحظات</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>UUID</td>
+<td>PK</td>
+</tr>
+<tr>
+<td>resource_id</td>
+<td>UUID</td>
+<td>FK</td>
+</tr>
+<tr>
+<td>user_id</td>
+<td>UUID</td>
+<td>FK</td>
+</tr>
+<tr>
+<td>start_at / end_at</td>
+<td>timestamptz</td>
+<td>فترة نصف مفتوحة، انظر R1</td>
+</tr>
+<tr>
+<td>status</td>
+<td>enum</td>
+<td><code>pending</code> أو <code>confirmed</code> أو <code>cancelled</code> أو <code>expired</code> أو <code>completed</code></td>
+</tr>
+<tr>
+<td>total_price</td>
+<td>numeric(12,2)</td>
+<td>يُحسب عند الإنشاء ولا يتغير بعده</td>
+</tr>
+<tr>
+<td>expires_at</td>
+<td>timestamptz</td>
+<td>للحالة <code>pending</code> فقط</td>
+</tr>
+<tr>
+<td>idempotency_key</td>
+<td>text</td>
+<td>unique لكل مستخدم، انظر R9</td>
+</tr>
+<tr>
+<td>version</td>
+<td>int</td>
+<td>للقفل المتفائل</td>
+</tr>
+<tr>
+<td>created_at / updated_at</td>
+<td>timestamptz</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<p>الدفع <strong>محاكى</strong>: الانتقال من <code>pending</code> إلى <code>confirmed</code> يتم باستدعاء <code>confirm</code> ولا توجد بوابة دفع حقيقية.</p>
+
+</section>
+<section class="spec-section">
+<h2>3. قواعد العمل</h2>
+<p><strong>R1. الفترة نصف مفتوحة <code>[start, end)</code>.</strong> حجز ينتهي 10:00 وآخر يبدأ 10:00 على المورد نفسه لا يتعارضان.</p>
+<p><strong>R2. صحة الفترة.</strong> <code>end_at</code> بعد <code>start_at</code>. المدة بين 30 دقيقة و8 ساعات، والحدود على مضاعفات 30 دقيقة.</p>
+<p><strong>R3. التوقيت.</strong> كل شيء يُخزَّن UTC. أي مدخل زمني دون منطقة زمنية يُرفض بالرمز 422. العرض يكون بمنطقة المورد.</p>
+<p><strong>R4. نافذة الحجز.</strong> لا حجز في الماضي، وأقصى مدى مسبق 180 يومًا.</p>
+<p><strong>R5. منع التعارض (أهم قاعدة).</strong> لا يتداخل حجزان على المورد نفسه حالة كل منهما <code>pending</code> أو <code>confirmed</code>. الحجز <code>cancelled</code> أو <code>expired</code> لا يحجز الوقت.
+- تُفرض القاعدة <strong>داخل قاعدة البيانات</strong> (المرحلة 9)، لا في كود التطبيق وحده.
+- يترجم التطبيق انتهاك القيد إلى الرمز 409.</p>
+<p><strong>R6. حالات الحجز.</strong></p>
+<pre><code>            confirm                 end_at passed
+ pending ─────────────▶ confirmed ─────────────────▶ completed
+   │  │                     │
+   │  │ 15 min timeout      │ cancel
+   │  └───────▶ expired     ▼
+   │ cancel               cancelled
+   └──────────────────────────▲
+</code></pre>
+<ul>
+<li>أي انتقال غير مرسوم أعلاه يُرفض بالرمز 409.</li>
+<li><code>expires_at</code> = وقت الإنشاء + 15 دقيقة. الحجز <code>pending</code> غير المؤكد بعدها يصبح <code>expired</code> عبر المهمة الخلفية (المجموعة 11).</li>
+</ul>
+<p><strong>R7. الإلغاء.</strong> المالك أو <code>admin</code>. إلغاء المالك مسموح قبل بدء الحجز بأكثر من 24 ساعة، وبعدها لـ <code>admin</code> فقط.</p>
+<p><strong>R8. الملكية.</strong> <code>customer</code> يرى ويلغي حجوزاته فقط، و<code>admin</code> يرى الكل. محاولة الوصول إلى حجز غيرك تُرجع <strong>404</strong> لا 403، حتى لا يُكشف وجوده.</p>
+<p><strong>R9. Idempotency.</strong> <code>POST /bookings</code> يقبل ترويسة <code>Idempotency-Key</code>.
+- تكرار المفتاح نفسه مع المحتوى نفسه يُرجع النتيجة الأولى نفسها دون إنشاء حجز جديد.
+- المفتاح نفسه مع محتوى مختلف يُرفض بالرمز 422.</p>
+<p><strong>R10. شكل الأخطاء الموحد.</strong></p>
+<pre><code class="language-json">{&quot;code&quot;: &quot;booking_conflict&quot;, &quot;message&quot;: &quot;الفترة محجوزة&quot;, &quot;details&quot;: {}}
+</code></pre>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>الرمز</th>
+<th>الاستخدام</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>401 / 403</td>
+<td>هوية غير مثبتة / صلاحية غير كافية</td>
+</tr>
+<tr>
+<td>404</td>
+<td>غير موجود أو غير مسموح برؤيته (R8)</td>
+</tr>
+<tr>
+<td>409</td>
+<td>تعارض فترة، أو انتقال حالة غير مسموح</td>
+</tr>
+<tr>
+<td>422</td>
+<td>مدخلات غير صالحة</td>
+</tr>
+<tr>
+<td>429</td>
+<td>تجاوز حصة الطلبات</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>R11. الترقيم.</strong> <code>limit</code> بحد أقصى 100 مع <code>offset</code> في البداية، ثم يُستبدل بـ keyset pagination عند تحسين الأداء على مليون صف.</p>
+
+</section>
+<section class="spec-section">
+<h2>4. مسودة الواجهة (أساس عقد OpenAPI في المرحلة 13)</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>الطريقة</th>
+<th>المسار</th>
+<th>الوصف</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>POST</td>
+<td><code>/resources</code></td>
+<td>إنشاء مورد (admin)</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/resources</code></td>
+<td>قائمة الموارد</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/resources/{id}</code></td>
+<td>مورد واحد</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/resources/{id}/availability?from=&amp;to=</code></td>
+<td>الفترات الحرة</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><code>/bookings</code></td>
+<td>إنشاء حجز <code>pending</code> (R9)</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/bookings</code></td>
+<td>حجوزاتي (والكل للـ admin)</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/bookings/{id}</code></td>
+<td>حجز واحد (R8)</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><code>/bookings/{id}/confirm</code></td>
+<td>تأكيد (دفع محاكى)</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><code>/bookings/{id}/cancel</code></td>
+<td>إلغاء (R7)</td>
+</tr>
+</tbody>
+</table></div>
+<p>قبل المجموعة 10 تُحاكى الهوية بترويسة مؤقتة <code>X-User-Id</code>، وتُحذف عند إضافة JWT.</p>
+
+</section>
+<section class="spec-section">
+<h2>5. حجم البيانات والأداء</h2>
+<p><strong>بيانات الاختبار</strong> (تُولَّد بـ <code>generate_series</code>): 1,000 مورد، و10,000 مستخدم، و1,000,000 حجز.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>المقياس</th>
+<th>الهدف</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>زمن الاستجابة</td>
+<td>p95 أقل من 300 ms وp99 أقل من 800 ms عند 100 طلب في الثانية (80% قراءة و20% كتابة)</td>
+</tr>
+<tr>
+<td>معدل الأخطاء</td>
+<td>استجابات 5xx أقل من 1%</td>
+</tr>
+<tr>
+<td>استعلام التوفر</td>
+<td>أقل من 50 ms على مليون صف بعد الفهرسة (المرحلة 10)</td>
+</tr>
+<tr>
+<td>التزامن</td>
+<td>50 محاولة حجز متزامنة لنفس المورد والفترة: نجاح واحد و49 استجابة 409 وصفر استجابة 500</td>
+</tr>
+<tr>
+<td>التوافر المستهدف (SLO)</td>
+<td>99.9% شهريًا، أي نحو 43 دقيقة توقف كحد أقصى في الشهر</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>تُقاس الأرقام بالسكربت نفسه في كل مرة، على القاعدة وحجم البيانات نفسيهما.</li>
+<li>الأرقام نقطة بداية: يجوز تعديلها بعد أول قياس فعلي، لكن بتدوين السبب هنا.</li>
+</ul>
+
+</section>
+<section class="spec-section">
+<h2>6. من يحيل إلى ماذا</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>المجموعة</th>
+<th>المستخدَم من هذا الملف</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>02 Python</td>
+<td>الكيانات (القسم 2) وR1 إلى R4 في أداة CLI على ملف JSON</td>
+</tr>
+<tr>
+<td>03 PostgreSQL</td>
+<td>Schema من القسم 2، وR5 قيدًا في القاعدة، واختبار التزامن، وبيانات القسم 5</td>
+</tr>
+<tr>
+<td>04 HTTP &amp; REST</td>
+<td>القسم 4 وR10 أساسًا لعقد OpenAPI قبل التنفيذ</td>
+</tr>
+<tr>
+<td>05 FastAPI Core</td>
+<td>CRUD وفق R1 إلى R11، أولًا بمستودع في الذاكرة ثم PostgreSQL</td>
+</tr>
+<tr>
+<td>06 Data Structures</td>
+<td>LRU Cache أمام <code>GET /resources</code> أو <code>availability</code></td>
+</tr>
+<tr>
+<td>07 Algorithms</td>
+<td>Interval Scheduling لحساب التوفر وكشف التداخل</td>
+</tr>
+<tr>
+<td>08 Concurrency</td>
+<td>تجربة <code>def</code> مقابل <code>async def</code> على endpoint يحاكي انتظار I/O</td>
+</tr>
+<tr>
+<td>09 Design &amp; Testing</td>
+<td>إعادة الهيكلة بحماية اختبارات المجموعة 05، وتغطية 80% لمنطق الأعمال</td>
+</tr>
+<tr>
+<td>10 Security</td>
+<td>R8، واختبار BOLA، وR10 للرمزين 401 و403، والحصة 429</td>
+</tr>
+<tr>
+<td>11 Caching &amp; Messaging</td>
+<td>Cache للتوفر، ومهمة R6 لإنهاء الحجوزات <code>pending</code> المنتهية</td>
+</tr>
+<tr>
+<td>12 Architecture</td>
+<td>ADR لقرار توسع واحد يستند إلى أرقام القسم 5</td>
+</tr>
+<tr>
+<td>13 Production</td>
+<td>قائمة الجاهزية (القسم 7)</td>
+</tr>
+<tr>
+<td>14 Extensions</td>
+<td>نموذج أولي لتقنية واحدة (مثل بحث نصي في أسماء الموارد) يقارَن بالحل الحالي</td>
+</tr>
+</tbody>
+</table></div>
+
+</section>
+<section class="spec-section">
+<h2>7. قائمة الجاهزية للإنتاج (المشروع الختامي)</h2>
+<ul>
+<li class="todo">أهداف القسم 5 كلها محققة، بتقرير قياس محفوظ في المستودع.</li>
+<li class="todo">CI أخضر على كل دمج: اختبارات، وmypy، وRuff، وبناء صورة Docker.</li>
+<li class="todo">اختبار التزامن (50 محاولة) يمر في CI.</li>
+<li class="todo">اختبار BOLA يمر في CI.</li>
+<li class="todo">الترحيلات تُطبَّق على قاعدة فارغة وعلى قاعدة بها بيانات بلا توقف.</li>
+<li class="todo">الأسرار خارج الكود والمستودع.</li>
+<li class="todo">Logs وMetrics وTracing تعمل، وتوجد لوحة بـ p95 ومعدل الأخطاء.</li>
+<li class="todo">Runbook يغطي ثلاثة أعطال على الأقل: امتلاء connection pool، وتعطل Redis، وتراكم المهام الخلفية.</li>
+<li class="todo">README يشرح التشغيل المحلي بأمر واحد (<code>docker compose up</code>).</li>
+</ul>
+</section>
+</main>
+</body>
+</html>

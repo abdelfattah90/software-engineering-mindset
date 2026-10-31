@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>[اسم المرحلة (English Name)]</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../assets/style.css" />
+  </head>
+
+  <body>
+    <!-- ==========================================================
+       صفحة المرحلة = محتوى ملف الـ md بعد إعادة تقسيم أجزائه، ومكانها NN-slug/index.html.
+       1) الطبقات والأجزاء بترتيب الـ md وبكل موضوعاته وملاحظاته؛ كل صفحة جزء = part-card واحدة.
+       2) الجزء الذي قُسِّم إلى صفحتين أو أكثر تظهر صفحاته متتالية في الطبقة نفسها، ورقمها
+          1.2a ثم 1.2b، وعنوانها «… - الجزء الأول» ثم «… - الجزء الثاني»؛ وملاحظة الـ md تُوضع
+          في الصفحة التي تخصّها (أو الأخيرة إن عمّت الجزء).
+       3) الرابط في عنوان كل part-card هو اسم ملف الصفحة نفسه المسجَّل في حقل f ببيانات الـ prompts.
+       4) كل موضوع: li فيه topic-ar (العربي) ثم topic-en (الإنجليزي) بالسمة dir="ltr". الموضوع الداعم
+          (~ في الـ prompts) يُكتب كغيره هنا.
+       5) الجزء الاختياري: chip chip--optional «اختيارية» داخل العنوان؛ والطبقة الاختيارية
+          فيها layer-note توضح ذلك.
+       6) لا data-toc في <body> ولا أزرار ولا أيقونات ولا classes جديدة ولا style ولا footer.
+          العنوان العربي مع الإنجليزي بصيغة «عربي <span dir="ltr">(English)</span>».
+       احذف هذه التعليقات وكل عنصر نائب [...] من الملف النهائي.
+    =========================================================== -->
+    <div class="topbar">
+      <div class="container topbar__inner">
+        <a class="topbar__back" href="../index.html"><span>الفهرس</span></a>
+        <span class="topbar__title" data-sync-title></span>
+      </div>
+    </div>
+
+    <main>
+      <header class="hero">
+        <div class="container">
+          <div class="hero__eyebrow">[المرحلة الأولى · P01]</div>
+          <h1 class="hero__title">[اسم المرحلة] <span dir="ltr">([English Name])</span></h1>
+          <p class="hero__lead"><strong>هدف المرحلة:</strong> [نص الهدف من الـ md.]</p>
+        </div>
+      </header>
+
+      <!-- ============ طبقة ============ -->
+      <section class="content-section" id="layer-1">
+        <div class="container">
+          <div class="content-section__eyebrow">الطبقة الأولى</div>
+          <h2 class="content-section__title">[عنوان الطبقة] <span dir="ltr">([English])</span></h2>
+          <div class="part-list">
+            <!-- جزء لم يُقسَّم -->
+            <article class="part-card" id="part-1-1">
+              <header class="part-card__head">
+                <span class="part-card__num">1.1</span>
+                <h3 class="part-card__title"><a href="01-[slug].html">[عنوان الجزء] <span dir="ltr">([English])</span></a></h3>
+              </header>
+              <ul class="part-card__topics">
+                <li><span class="topic-ar">[الموضوع بالعربية]</span><span class="topic-en" dir="ltr">[Topic in English]</span></li>
+                <li><span class="topic-ar">[الموضوع 2]</span><span class="topic-en" dir="ltr">[Topic 2]</span></li>
+              </ul>
+            </article>
+
+            <!-- جزء قُسِّم إلى صفحتين (لكلٍّ بطاقتها) -->
+            <article class="part-card" id="part-1-2a">
+              <header class="part-card__head">
+                <span class="part-card__num">1.2a</span>
+                <h3 class="part-card__title"><a href="02-[slug]-part-1.html">[العنوان] - الجزء الأول <span dir="ltr">([English] - Part 1)</span></a></h3>
+              </header>
+              <ul class="part-card__topics">
+                <li><span class="topic-ar">[موضوع]</span><span class="topic-en" dir="ltr">[Topic]</span></li>
+              </ul>
+            </article>
+            <article class="part-card" id="part-1-2b">
+              <header class="part-card__head">
+                <span class="part-card__num">1.2b</span>
+                <h3 class="part-card__title"><a href="03-[slug]-part-2.html">[العنوان] - الجزء الثاني <span dir="ltr">([English] - Part 2)</span></a></h3>
+              </header>
+              <ul class="part-card__topics">
+                <li><span class="topic-ar">[موضوع]</span><span class="topic-en" dir="ltr">[Topic]</span></li>
+              </ul>
+              <!-- ملاحظة من الـ md (اختيارية) -->
+              <p class="part-card__note">[نص الملاحظة.]</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ طبقة اختيارية (إن وُجدت في الـ md) ============ -->
+      <section class="content-section" id="layer-4">
+        <div class="container">
+          <div class="content-section__eyebrow">الطبقة الرابعة</div>
+          <h2 class="content-section__title">[عنوان الطبقة] <span dir="ltr">([English])</span></h2>
+          <p class="layer-note">[نص التنبيه إلى أن الطبقة اختيارية ولا يتوقف عليها الانتقال.]</p>
+          <div class="part-list">
+            <article class="part-card" id="part-4-1">
+              <header class="part-card__head">
+                <span class="part-card__num">4.1</span>
+                <h3 class="part-card__title"><a href="21-[slug].html">[عنوان الجزء] <span dir="ltr">([English])</span></a><span class="chip chip--optional">اختيارية</span></h3>
+              </header>
+              <ul class="part-card__topics">
+                <li><span class="topic-ar">[موضوع]</span><span class="topic-en" dir="ltr">[Topic]</span></li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ التدريبات العملية ومعيار الانتقال (من الـ md) ============ -->
+      <section class="content-section" id="exercises">
+        <div class="container">
+          <div class="content-section__eyebrow">التطبيق</div>
+          <h2 class="content-section__title">التدريبات العملية <span dir="ltr">(Practical Exercises)</span></h2>
+          <div class="article-content">
+            <h3>[عنوان مجموعة التمارين]</h3>
+            <ol>
+              <li>[التمرين 1 كما في الـ md، بمراجع الأجزاء (1.1، 1.2).]</li>
+              <li>[التمرين 2.]</li>
+            </ol>
+            <!-- مجموعة ثانية تكمل الترقيم: <ol start="3"> -->
+            <div class="callout callout--note">
+              <span class="callout__label">المخرج</span>
+              <p>[ما تخرج به المرحلة.]</p>
+            </div>
+            <h3>معيار الانتقال</h3>
+            <div class="summary-card">
+              <ul class="check-list">
+                <li>[معيار 1.]</li>
+                <li>[معيار 2.]</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="../assets/stage.js"></script>
+  </body>
+</html>
